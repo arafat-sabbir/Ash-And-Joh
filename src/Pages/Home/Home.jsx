@@ -1,12 +1,13 @@
-// import Navbar from "../../Components/Navbar/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 
 const Home = () => {
-   return (
-      <div>
-         {/* <Navbar></Navbar> */}
-         <h2>This is home.</h2>
-      </div>
-   );
+    return (
+        <div>
+            <div className="container">
+                <Navbar />
+            </div>
+        </div>
+    );
 };
 
 export default Home;
