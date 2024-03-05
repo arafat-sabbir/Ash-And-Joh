@@ -1,6 +1,9 @@
 import { PropTypes } from "prop-types"
 
-const SignInForm = ({ handleSignIn, setFormType }) => {
+const SignInForm = ({  setFormType }) => {
+    const handleSignIn = ()=>{
+        
+    }
     return (
         <form onSubmit={handleSignIn} className="flex flex-col px-10">
             <label className=" ml-[5px]" htmlFor="email">Email: </label>

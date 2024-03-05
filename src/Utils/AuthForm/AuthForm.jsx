@@ -7,12 +7,6 @@ import SignUpForm from "./SignUpForm";
 
 const AuthForm = ({ formType, setFormType }) => {
     const [dialogOpen, setDialogOpen] = useState(true);
-    const handleSignIn = () => {
-
-    }
-    const handleSignUp = () => {
-
-    }
     return (
         <div>
             {dialogOpen && <DialogContent>
@@ -20,8 +14,8 @@ const AuthForm = ({ formType, setFormType }) => {
                     <DialogTitle className="text-center font-semibold  text-3xl">{formType === 'signIn' ? 'Sign In' : 'Sign Up'}</DialogTitle>
                     <DialogDescription>
                         {formType === 'signIn' ?
-                            <SignInForm handleSignIn={handleSignIn} setFormType={setFormType} />
-                            : (<SignUpForm setFormType={setFormType} handleSignUp={handleSignUp} />)}
+                            <SignInForm setFormType={setFormType} />
+                            : (<SignUpForm setFormType={setFormType}  />)}
                     </DialogDescription>
                 </DialogHeader>
                 {/* Additional form fields based on formType */}

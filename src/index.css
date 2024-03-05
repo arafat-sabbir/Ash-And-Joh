@@ -11,7 +11,9 @@
 .input-field {
   @apply py-2 rounded-xl bg-gray-500/50 px-4 focus:outline-none text-gray-300 my-4;
 }
-
+.container {
+  max-width: 1636px !important;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

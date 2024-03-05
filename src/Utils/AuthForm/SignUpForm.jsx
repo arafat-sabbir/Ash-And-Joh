@@ -1,5 +1,10 @@
 import { PropTypes } from "prop-types"
-const SignUpForm = ({ handleSignUp, setFormType }) => {
+const SignUpForm = ({ setFormType }) => {
+    const handleSignUp = (e) => {
+        e.preventDefault()
+        const form = e.target;
+        const name = 
+    }
     return (
         <form onSubmit={handleSignUp} className="flex flex-col px-10">
             <label className="ml-[5px]" htmlFor="email text-gray-200">UserName: </label>
