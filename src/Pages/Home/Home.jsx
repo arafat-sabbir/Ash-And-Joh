@@ -1,10 +1,16 @@
+import Banner from "@/Components/Banner/Banner";
+import Navbar from "@/Components/Navbar/Navbar";
+
 
 const Home = () => {
-   return (
-      <div>
-         <h2>This is home.</h2>
-      </div>
-   );
+    return (
+        <div className="h-[300vh]">
+            <div className="container">
+                <Navbar />
+            </div>
+            <Banner />
+        </div>
+    );
 };
 
 export default Home;
