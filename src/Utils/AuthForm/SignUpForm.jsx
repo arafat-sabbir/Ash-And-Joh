@@ -44,7 +44,7 @@ const SignUpForm = ({ setFormType }) => {
             <label className="ml-[5px]" htmlFor="password">Confirm Password:</label>
             <input required className="input-field" type="password" name="confirmPassword" />
             <input className="w-full py-3 bg-gray-500 text-black rounded-full cursor-pointer " type="submit" value="Sign Up" />
-            <p className="text-black ml-1">Have account? Sign in  account   <span className="cursor-pointer text-black underline font-semibold text-lg" onClick={() => setFormType("signIn")}>SignIn</span></p>
+            <p className="text-black ml-1 text-center my-2">Already have an account? Please <span className="cursor-pointer text-black underline font-semibold text-lg" onClick={() => setFormType("signIn")}>SignIn</span></p>
         </form>
     );
 };

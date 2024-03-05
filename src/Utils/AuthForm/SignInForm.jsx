@@ -40,7 +40,7 @@ const SignInForm = ({  setFormType }) => {
             <label className=" ml-[5px]" htmlFor="password">Password:</label>
             <input required className="input-field" type="password" name="password" />
             <input required className="w-full py-3 bg-gray-500 text-black rounded-full cursor-pointer" type="submit" value="Sign In" />
-            <p className="text-black ml-1">Do not Have A Account? Create an Account  <span className="cursor-pointer text-black underline font-semibold text-lg" onClick={() => setFormType("signUp")}>SignUp</span></p>
+            <p className="text-black ml-1 text-center my-2">New in Ash & Joh? Please <span className="cursor-pointer text-black underline font-semibold text-lg" onClick={() => setFormType("signUp")}>SignUp</span></p>
         </form>
     );
 };
