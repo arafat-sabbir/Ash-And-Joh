@@ -3,7 +3,7 @@ const SignUpForm = ({ setFormType }) => {
     const handleSignUp = (e) => {
         e.preventDefault()
         const form = e.target;
-        const name = 
+        const name = form.name;
     }
     return (
         <form onSubmit={handleSignUp} className="flex flex-col px-10">
