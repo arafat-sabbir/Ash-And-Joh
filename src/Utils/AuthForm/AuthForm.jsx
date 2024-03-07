@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { PropTypes } from "prop-types"
 import { useState } from "react";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
-import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/Components/ui/dialog";
+import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 
 const AuthForm = ({ formType, setFormType }) => {

@@ -1,36 +1,35 @@
-import { Context } from "@/Auth/AuthProvider/AuthProvider";
+import useAuth from "@/Hooks/useAuth";
 import { PropTypes } from "prop-types"
-import { useContext } from "react";
 import Swal from "sweetalert2";
 const SignUpForm = ({ setFormType }) => {
-    const {signUpUser} = useContext(Context);
-    const handleSignUp = (e) => {
+    const { signUpUser, updateUserProfile } = useAuth()
+    const handleSignUp = async (e) => {
         e.preventDefault()
         const form = e.target;
         const username = form.username.value;
         const email = form.email.value;
         const password = form.password.value;
-        const signUp = {username, email, password}
-        console.log(signUp);
-        signUpUser(email, password)
-        .then((result) => {
-            const user = result.user;
-            console.log(user);
-            Swal.fire({
-               title: "Good job!",
-               text: "You clicked the button!",
-               icon: "success",
+        const signUp = { username, email, password }
+        await signUpUser(email, password)
+            .then(async (result) => {
+                await updateUserProfile(username, "none")
+                const user = result.user;
+                console.log(user);
+                Swal.fire({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    icon: "success",
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: '<a href="#">Why do I have this issue?</a>',
+                });
             });
-         })
-         .catch((error) => {
-            console.error(error);
-            Swal.fire({
-               icon: "error",
-               title: "Oops...",
-               text: "Something went wrong!",
-               footer: '<a href="#">Why do I have this issue?</a>',
-            });
-         });
 
     }
     return (

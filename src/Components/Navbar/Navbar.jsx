@@ -1,34 +1,37 @@
 import { Link, NavLink } from "react-router-dom";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import AuthForm from "@/Utils/AuthForm/AuthForm";
-import { useContext, useState } from "react";
-import { Context } from "@/Auth/AuthProvider/AuthProvider";
+import { useState } from "react";
 import Swal from "sweetalert2";
+import useAuth from "@/Hooks/useAuth";
+import useIsScrolled from "@/Hooks/useIsScrolled";
 
 const Navbar = () => {
    const [formType, setFormType] = useState(null);
-   const { user, signOutUser } = useContext(Context);
+
+   const { isScrolled } = useIsScrolled()
+   const { user, signOutUser } = useAuth()
    const handleSignOut = () => {
-    signOutUser()
-    .then((result) => {
-        const user = result.user;
-        console.log(user);
-        Swal.fire({
-           title: "Good job!",
-           text: "Log Out Successfully",
-           icon: "success",
-        });
-     })
-     .catch((error) => {
-        console.error(error);
-        Swal.fire({
-           icon: "error",
-           title: "Oops...",
-           text: "Something went wrong!",
-           footer: '<a href="#">Why do I have this issue?</a>',
-        });
-     });
-  };
+      signOutUser()
+         .then((result) => {
+            const user = result.user;
+            console.log(user);
+            Swal.fire({
+               title: "Good job!",
+               text: "Log Out Successfully",
+               icon: "success",
+            });
+         })
+         .catch((error) => {
+            console.error(error);
+            Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "Something went wrong!",
+               footer: '<a href="#">Why do I have this issue?</a>',
+            });
+         });
+   };
    const NavLinks = (
       <>
          <li>
@@ -43,7 +46,7 @@ const Navbar = () => {
       </>
    );
    return (
-      <div className="navbar bg-base-100">
+      <div className={`navbar ${isScrolled ? "fixed top-4 left-0 right-0 container mx-auto" : ""}`}>
          <div className="navbar-start">
             <div className="dropdown">
                <div
@@ -86,7 +89,9 @@ const Navbar = () => {
          </div>
          <div className="navbar-end">
             {user ? (
-               <button className="btn btn-primary" onClick={handleSignOut}>Sign Out</button>
+               <>
+                  <h1 className="mr-4">{user?.displayName}</h1>
+                  <button className="btn btn-primary" onClick={handleSignOut}>Sign Out</button></>
             ) : (
                <Dialog>
                   <DialogTrigger>
