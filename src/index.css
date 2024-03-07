@@ -7,6 +7,7 @@
 * {
   font-family: "Inter", sans-serif !important;
 }
+/* afd */
 
 .input-field {
   @apply py-2 rounded-xl bg-gray-500/50 px-4 focus:outline-none text-gray-300 my-4;
