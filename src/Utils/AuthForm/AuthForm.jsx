@@ -1,8 +1,10 @@
 import { PropTypes } from "prop-types"
 import { useState } from "react";
+
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
-import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/Components/ui/dialog";
+import { DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 
 const AuthForm = ({ formType, setFormType }) => {
@@ -15,7 +17,7 @@ const AuthForm = ({ formType, setFormType }) => {
                     <DialogDescription>
                         {formType === 'signIn' ?
                             <SignInForm setFormType={setFormType} />
-                            : (<SignUpForm setFormType={setFormType}  />)}
+                            : (<SignUpForm setFormType={setFormType} />)}
                     </DialogDescription>
                 </DialogHeader>
                 {/* Additional form fields based on formType */}
