@@ -43,7 +43,7 @@ const Navbar = () => {
                 <NavLink to={"/shop"}>Shop</NavLink>
             </li>
             <li className="NavLink">
-                <NavLink to={"/tread"}>Tread</NavLink>
+                <NavLink to={"/trade"}>Trade</NavLink>
             </li>
         </>
     );
@@ -120,7 +120,6 @@ const Navbar = () => {
                             </Dialog>
                         )}
                     </div>
-
                 </div>
             </div>
             <div style={{ backgroundImage: "url('https://i.ibb.co/J2DdBJh/Group-9-1.png')" }} className="bg-cover  bg-no-repeat h-[60vh] bg-center  flex justify-center items-center">
