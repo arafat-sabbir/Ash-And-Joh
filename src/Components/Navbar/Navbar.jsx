@@ -2,9 +2,11 @@ import { Link, NavLink } from "react-router-dom";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import AuthForm from "@/Utils/AuthForm/AuthForm";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import useAuth from "@/Hooks/useAuth";
 import useIsScrolled from "@/Hooks/useIsScrolled";
+import Swal from "sweetalert2";
+
+
 
 const Navbar = () => {
    const [formType, setFormType] = useState(null);
