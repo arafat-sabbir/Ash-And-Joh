@@ -11,11 +11,12 @@ const AuthForm = ({ formType, setFormType }) => {
         <div>
             {dialogOpen && <DialogContent>
                 <DialogHeader>
-                    <DialogTitle className="text-center font-semibold  text-3xl">{formType === 'signIn' ? 'Sign In' : 'Sign Up'}</DialogTitle>
+                    <DialogTitle className="text-center py-10 font-semibold  text-3xl">{formType === 'signIn' ? 'Sign In' : 'Sign Up'}</DialogTitle>
                     <DialogDescription>
-                        {formType === 'signIn' ?
-                            <SignInForm setFormType={setFormType} />
-                            : (<SignUpForm setFormType={setFormType}  />)}
+                        {formType === 'signUp' ?
+                            (<SignUpForm setFormType={setFormType} />)
+                            : (<SignInForm setFormType={setFormType} />)
+                        }
                     </DialogDescription>
                 </DialogHeader>
                 {/* Additional form fields based on formType */}

@@ -3,6 +3,7 @@ import { PropTypes } from "prop-types"
 import { useContext } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import Input from "./Input";
 
 const SignInForm = ({ setFormType }) => {
     const { signInUser } = useContext(Context);
@@ -30,13 +31,11 @@ const SignInForm = ({ setFormType }) => {
             });
     }
     return (
-        <form onSubmit={handleSignIn} className="flex flex-col px-10">
-            <label className=" ml-[5px]" htmlFor="email">Email: </label>
-            <input required className="input-field" type="email" name="email" />
-            <label className=" ml-[5px]" htmlFor="password">Password:</label>
-            <input required className="input-field" type="password" name="password" />
-            <input required className="w-full py-3 bg-gray-500 text-black rounded-full cursor-pointer" type="submit" value="Sign In" />
-            <p className="text-black ml-1 text-center my-2">New in Ash & Joh? Please <span className="cursor-pointer text-black underline font-semibold text-lg" onClick={() => setFormType("signUp")}>SignUp</span></p>
+        <form onSubmit={handleSignIn} className="flex flex-col px-12 gap-8">
+            <Input name={"email"} type={"email"} />
+            <Input name={"password"} type={"password"} />
+            <button className="submitBtn">SignIn</button>
+            <p className="text-black text-lg text-center my-2">New in Ash & Joh? Please <span className="cursor-pointer text-black underline font-semibold text-md" onClick={() => setFormType("signUp")}>SignUp</span></p>
         </form>
     );
 };
@@ -44,6 +43,6 @@ const SignInForm = ({ setFormType }) => {
 export default SignInForm;
 
 SignInForm.propTypes = {
-    handleSignIn: PropTypes.obj,
-    setFormType: PropTypes.obj
+    handleSignIn: PropTypes.function,
+    setFormType: PropTypes.function
 }

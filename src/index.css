@@ -1,19 +1,70 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-  font-family: "Inter", sans-serif !important;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
 
-.input-field {
-  @apply input border-gray-200 bg-gray-100/50 focus:bg-white focus:outline-none border-2 focus:border-main;
+body {
+  overflow-x: hidden;
+  font-family: "Montserrat", sans-serif;
 }
 
 .container {
   max-width: 1636px !important;
+}
+
+.active {
+  @apply relative before:absolute before:w-6 before:-bottom-1 before:transition-all before:duration-300 hover:before:w-full before:h-[3px] before:rounded-full before:bg-main;
+}
+
+.NavLink :not(.active) {
+  @apply relative before:absolute before:w-0 before:-bottom-1 before:transition-all before:duration-300 hover:before:w-full before:h-[3px] before:bg-main;
+}
+.submitBtn {
+  width: 100%;
+  background-color: #4b5360;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 1rem;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.125rem; /* 18px */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.submitBtn::before {
+  content: "";
+  width: 0;
+  height: 0;
+  background-color: #ec2e2e;
+  position: absolute;
+  bottom: 0;
+  border-radius: 1rem;
+  z-index: -1;
+}
+
+.submitBtn:hover:before {
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s ease-in-out;
+  color: #ffffff;
+}
+
+.submitBtn:not(:hover)::before {
+  width: 0;
+  height: 0;
+  transition: all 0.5s ease-in-out;
+  color: #ffffff;
 }
 
 :root {
