@@ -1,8 +1,8 @@
 import { PropTypes } from "prop-types"
-import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useState } from "react";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
+import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/Components/ui/dialog";
 
 
 const AuthForm = ({ formType, setFormType }) => {
