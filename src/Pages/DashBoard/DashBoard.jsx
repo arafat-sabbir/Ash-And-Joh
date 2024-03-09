@@ -1,9 +1,10 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { FaListCheck } from "react-icons/fa6";
-import { IoReturnUpBack } from "react-icons/io5";
+import { PiSignOutFill } from "react-icons/pi";
 import { FaListUl } from "react-icons/fa6";
 import useAuth from "@/Hooks/useAuth";
 import toast from "react-hot-toast";
+import Button from "@/Utils/AuthForm/Button";
 
 const Dashboard = () => {
     const { user, signOutUser } = useAuth();
@@ -35,12 +36,7 @@ const Dashboard = () => {
                                 alt=""
                             />
                             <h1 className="font-semibold text-xl mt-2">{user?.displayName}</h1>
-                            <button onClick={handleSignOut} className=" text-black font-semibold flex justify-center gap-2 bg-red-100 p-2 rounded-sm mt-2 left-96 top-10">
-                                <span className="text-2xl">
-                                    <IoReturnUpBack />
-                                </span>
-                                Sign Out
-                            </button>
+                            <Button onClick={handleSignOut} className={"rotate-180"} Icon={PiSignOutFill} title={"SignOut"} />
                         </div>
                         <Link to={"/"} className="flex justify-center items-center min-w-full mb-10">
                             <div className="flex flex-col justify-center items-center gap-2">
