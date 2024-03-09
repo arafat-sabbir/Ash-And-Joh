@@ -1,6 +1,5 @@
 import useAuth from "@/Hooks/useAuth";
 import { PropTypes } from "prop-types"
-import Swal from "sweetalert2";
 import Input from "./Input";
 import { useState } from "react";
 import toast from "react-hot-toast";

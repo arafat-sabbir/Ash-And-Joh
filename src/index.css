@@ -20,15 +20,20 @@ body {
 }
 
 .active {
-  @apply relative before:absolute before:w-8 before:-bottom-1 before:transition-all before:duration-300 hover:before:w-full before:h-[3px] before:rounded-full before:bg-main;
+  @apply relative before:absolute before:w-[50%] before:-bottom-1 before:transition-all before:duration-300 hover:before:w-full before:h-[3px] before:rounded-full before:bg-main;
 }
 
 .NavLink :not(.active) {
   @apply relative before:absolute before:w-0 before:-bottom-1 before:transition-all before:duration-300 hover:before:w-full before:h-[3px] before:bg-main;
 }
+
+.dashActive {
+  @apply scale-110 text-main font-bold tracking-wide;
+}
+
 .submitBtn {
   width: 100%;
-  background-color: #4b5360;
+  background-color: #485465;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   border-radius: 1rem;

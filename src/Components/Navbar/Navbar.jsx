@@ -2,10 +2,11 @@ import { Link, NavLink } from "react-router-dom";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import AuthForm from "@/Utils/AuthForm/AuthForm";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import useAuth from "@/Hooks/useAuth";
 import useIsScrolled from "@/Hooks/useIsScrolled";
-import { FaUserLarge } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import Button from "@/Utils/AuthForm/Button";
+
 
 const Navbar = () => {
     const [formType, setFormType] = useState(null);
@@ -13,27 +14,7 @@ const Navbar = () => {
 
     const { isScrolled } = useIsScrolled()
     const { user, signOutUser } = useAuth()
-    const handleSignOut = () => {
-        signOutUser()
-            .then((result) => {
-                const user = result.user;
-                console.log(user);
-                Swal.fire({
-                    title: "Good job!",
-                    text: "Log Out Successfully",
-                    icon: "success",
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Something went wrong!",
-                    footer: '<a href="#">Why do I have this issue?</a>',
-                });
-            });
-    };
+  
     const NavLinks = (
         <>
             <li className="NavLink">
@@ -95,26 +76,11 @@ const Navbar = () => {
                         {user ? (
                             <>
                                 <h1 className="mr-4">{user?.displayName}</h1>
-                                <button className="btn btn-primary" onClick={handleSignOut}>Sign Out</button></>
+                                <Link to={"/Dashboard/myProfile"}><Button title={"Account"} /></Link></>
                         ) : (
                             <Dialog>
                                 <DialogTrigger>
-                                    <button
-                                        className="group flex items-center justify-start w-11 h-11 bg-red-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-400 shadow-lg hover:w-32 hover:rounded-lg "
-                                    >
-                                        <div
-                                            className="flex items-center justify-center w-full transition-all duration-700 group-hover:justify-start group-hover:pl-6"
-                                        >
-                                            <FaUserLarge className="text-white" size={20} />
-                                        </div>
-                                        <div
-                                            className="absolute right-5 transform translate-x-full opacity-0 text-white text-lg font-semibold transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-                                        >
-                                            Login
-                                        </div>
-                                    </button>
-
-
+                                    <Button title={"Login"} />
                                 </DialogTrigger>
                                 <AuthForm formType={formType} setFormType={setFormType} />
                             </Dialog>

@@ -6,12 +6,13 @@ import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/c
 
 
 const AuthForm = ({ formType, setFormType }) => {
+    // eslint-disable-next-line no-unused-vars
     const [dialogOpen, setDialogOpen] = useState(true);
     return (
         <div>
             {dialogOpen && <DialogContent>
                 <DialogHeader>
-                    <DialogTitle className="text-center py-10 font-semibold  text-3xl">{formType === 'signIn' ? 'Sign In' : 'Sign Up'}</DialogTitle>
+                    <DialogTitle className="text-center py-10 font-semibold  text-3xl">{formType === 'signUp' ? 'Sign Up' : 'Sign In'}</DialogTitle>
                     <DialogDescription>
                         {formType === 'signUp' ?
                             (<SignUpForm setFormType={setFormType} />)
