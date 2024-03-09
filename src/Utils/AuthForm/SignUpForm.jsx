@@ -8,6 +8,7 @@ const SignUpForm = ({ setFormType }) => {
     const [signUpData, setSignUpData] = useState({ username: "", email: "", password: "", confirmPassword: "" })
     const handleSignUp = async (e) => {
         e.preventDefault()
+
         if (signUpData.password !== signUpData.confirmPassword) {
             return toast.error("Password Didn't Match Try Again")
         }
@@ -19,6 +20,10 @@ const SignUpForm = ({ setFormType }) => {
             .catch(() => {
                 toast.error("Invalid Email or Password")
             });
+
+
+        const form = e.target;
+        const name = form.name;
 
     }
     return (
