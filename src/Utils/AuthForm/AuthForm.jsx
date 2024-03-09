@@ -3,11 +3,7 @@ import { useState } from "react";
 
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
-
-import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-
-import { DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
-import { DialogTitle } from "@radix-ui/react-dialog";
+import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/Components/ui/dialog";
 
 
 
@@ -25,10 +21,6 @@ const AuthForm = ({ formType, setFormType }) => {
                             (<SignUpForm setFormType={setFormType} />)
                             : (<SignInForm setFormType={setFormType} />)
                         }
-
-                        {formType === 'signIn' ?
-                            <SignInForm setFormType={setFormType} />
-                            : (<SignUpForm setFormType={setFormType} />)}
 
                     </DialogDescription>
                 </DialogHeader>

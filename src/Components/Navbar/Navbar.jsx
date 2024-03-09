@@ -4,7 +4,6 @@ import AuthForm from "@/Utils/AuthForm/AuthForm";
 import { useState } from "react";
 import useAuth from "@/Hooks/useAuth";
 import useIsScrolled from "@/Hooks/useIsScrolled";
-import toast from "react-hot-toast";
 import Button from "@/Utils/AuthForm/Button";
 
 

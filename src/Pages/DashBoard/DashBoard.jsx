@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FaListCheck } from "react-icons/fa6";
 import { IoReturnUpBack } from "react-icons/io5";
 import { FaListUl } from "react-icons/fa6";
@@ -7,9 +7,14 @@ import toast from "react-hot-toast";
 
 const Dashboard = () => {
     const { user, signOutUser } = useAuth();
+    const navigate = useNavigate();
     const handleSignOut = () => {
         signOutUser()
-            .then()
+            .then(()=>{
+                toast.success('Successfully toasted!')
+                navigate('/')
+            }
+            )
             .catch((error) => {
                 toast.error(error.message)
             });
