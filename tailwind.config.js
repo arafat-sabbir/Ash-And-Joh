@@ -18,6 +18,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        main: "#DC2626",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -73,8 +74,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("daisyui")
-  ],
+  plugins: [require("tailwindcss-animate"), require("daisyui")],
 };

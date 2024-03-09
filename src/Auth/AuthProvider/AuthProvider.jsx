@@ -13,13 +13,13 @@ import {
 
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import useAxiosPublic from "../../Hooks/AxiosPublic/useAxiosPublic";
 import { app } from "@/Config/firebase.config";
+import useAxios from "@/Hooks/useAxios";
 
 export const Context = createContext("");
 
 const AuthProvider = ({ children }) => {
-    const axiosPublic = useAxiosPublic();
+    const axios = useAxios();
     const [user, setUser] = useState("");
     const [loader, setLoader] = useState(true);
     const auth = getAuth(app);
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             if (currentUser) {
                 const user = { email: currentUser.email };
-                axiosPublic.post("/user/accessToken", user).then((res) => {
+                axios.post("/user/accessToken", user).then((res) => {
                     const token = res.data.token;
                     if (token) {
                         localStorage.setItem("access-token", token);
@@ -78,7 +78,7 @@ const AuthProvider = ({ children }) => {
             }
         });
         return () => unsubscribe();
-    }, [auth, axiosPublic]);
+    }, [auth, axios]);
     return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };
 
