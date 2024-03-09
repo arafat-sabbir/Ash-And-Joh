@@ -1,4 +1,4 @@
 const UserProfile = () => {
-    return <> ajdkfladfklj</>
+    return <> This is for user</>
 }
 export default UserProfile
