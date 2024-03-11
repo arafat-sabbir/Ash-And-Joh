@@ -2,6 +2,7 @@ import { FaUserLarge } from "react-icons/fa6";
 import { PropTypes } from "prop-types"
 
 const Button = ({ title, image, Icon, className, onClick }) => {
+    console.log(image);
     return <div onClick={onClick}
         className="group flex items-center justify-start w-11 h-11 bg-red-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-400 shadow-lg hover:w-32 hover:rounded-lg "
     >
@@ -9,7 +10,7 @@ const Button = ({ title, image, Icon, className, onClick }) => {
             className={`flex items-center justify-center w-full transition-all duration-700 group-hover:justify-start group-hover:pl-3`}
         >
             {image ? (
-                <img src={image} alt="User" />
+                <img className="w-10 h-10 block group-hover:pr-5 group-hover:w-10 group-hover:h-6" src={image} alt="User" />
             ) : (
                 Icon ? (
                     <Icon className={` text-white ${className}`} size={20} />

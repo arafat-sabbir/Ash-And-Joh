@@ -12,7 +12,7 @@ const Navbar = () => {
 
     const { isScrolled } = useIsScrolled()
     const { user, signOutUser } = useAuth()
-  
+
     const NavLinks = (
         <>
             <li className="NavLink">
@@ -74,7 +74,7 @@ const Navbar = () => {
                         {user ? (
                             <>
                                 <h1 className="mr-4">{user?.displayName}</h1>
-                                <Link to={"/Dashboard/myProfile"}><Button title={"Account"} /></Link></>
+                                <Link to={"/Dashboard/myProfile"}><Button image={user.photoURL} title={"Account"} /></Link></>
                         ) : (
                             <Dialog>
                                 <DialogTrigger>
