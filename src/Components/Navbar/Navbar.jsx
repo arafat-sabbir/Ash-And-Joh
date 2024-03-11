@@ -9,7 +9,6 @@ import Button from "@/Utils/AuthForm/Button";
 
 const Navbar = () => {
     const [formType, setFormType] = useState(null);
-    console.log(formType);
 
     const { isScrolled } = useIsScrolled()
     const { user, signOutUser } = useAuth()

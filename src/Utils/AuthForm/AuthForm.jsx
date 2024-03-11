@@ -33,5 +33,5 @@ export default AuthForm;
 
 AuthForm.propTypes = {
     formType: PropTypes.string,
-    setFormType: PropTypes.obj
+    setFormType: PropTypes.func
 }

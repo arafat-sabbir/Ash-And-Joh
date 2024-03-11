@@ -20,11 +20,6 @@ const SignUpForm = ({ setFormType }) => {
             .catch(() => {
                 toast.error("Invalid Email or Password")
             });
-
-
-        const form = e.target;
-        const name = form.name;
-
     }
     return (
         <form onSubmit={handleSignUp} className="flex flex-col px-10 gap-6">
@@ -41,6 +36,6 @@ const SignUpForm = ({ setFormType }) => {
 export default SignUpForm;
 
 SignUpForm.propTypes = {
-    handleSignUp: PropTypes.function,
-    setFormType: PropTypes.function
+    handleSignUp: PropTypes.func,
+    setFormType: PropTypes.func
 }

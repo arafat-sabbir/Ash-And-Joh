@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
     const axios = useAxios();
     const [user, setUser] = useState("");
     const [loader, setLoader] = useState(true);
+    const [userData, setUserData] = useState({})
     const auth = getAuth(app);
 
     const googleProvider = new GoogleAuthProvider();
@@ -59,16 +60,18 @@ const AuthProvider = ({ children }) => {
         loader,
         signOutUser,
         updateUserProfile,
+        userData
     };
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
             if (currentUser) {
-                const user = { email: currentUser.email };
-                axios.post("/user/accessToken", user).then((res) => {
-                    const token = res.data.token;
-                    if (token) {
-                        localStorage.setItem("access-token", token);
+                const user = { email: currentUser.email,username:currentUser.displayName };
+                await axios.post("/auth/registerUser", { userEmail: user.email,username:user.username }).then((res) => {
+                    const accessToken = res.data.accessToken;
+                    setUserData(res.data.userData)
+                    if (accessToken) {
+                        localStorage.setItem("access-token", accessToken);
                         setLoader(false);
                     }
                 });
