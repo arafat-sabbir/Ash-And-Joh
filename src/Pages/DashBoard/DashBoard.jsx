@@ -16,14 +16,13 @@ const Dashboard = () => {
       });
   };
   return (
-    <div className="flex">
+    <>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col mt-6 md:mt-0 items-center lg:mt-20 container mx-auto md:p-4 ">
+        <div className="drawer-content p-4">
           {/* Page content here */}
           <Outlet></Outlet>
           <label htmlFor="my-drawer-2" className=" btn bg-black text-white border-y-4 border-y-main drawer-button lg:hidden absolute top-4 left-4"><FaListUl></FaListUl></label>
-
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
@@ -135,7 +134,7 @@ const Dashboard = () => {
       <div className=" ml-[280px] px-16 pt-24 w-full">
         
       </div> */}
-    </div>
+    </>
   );
 };
 
