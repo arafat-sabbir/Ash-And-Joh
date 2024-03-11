@@ -20,8 +20,7 @@ const SignInForm = ({ setFormType }) => {
             .then(() => {
                 toast.success("Sign in Successful")
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
                 toast.error("Invalid Email And Password")
             });
     }
@@ -39,7 +38,8 @@ const SignInForm = ({ setFormType }) => {
 
 export default SignInForm;
 
+
 SignInForm.propTypes = {
-    handleSignIn: PropTypes.function,
-    setFormType: PropTypes.function
+    handleSignIn: PropTypes.func,
+    setFormType: PropTypes.func 
 }
