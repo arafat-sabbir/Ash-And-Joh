@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FaListCheck } from "react-icons/fa6";
 import { PiSignOutFill } from "react-icons/pi";
 import { FaListUl } from "react-icons/fa6";
@@ -46,6 +46,30 @@ const Dashboard = () => {
                 />
                 <div className="px-2  mx-2 lg:mx-0 font-bold text-2xl">
                   Ash&Joh
+
+    const { user, signOutUser } = useAuth();
+    const navigate = useNavigate();
+    const handleSignOut = () => {
+        signOutUser()
+            .then(()=>{
+                toast.success('Successfully toasted!')
+                navigate('/')
+            }
+            )
+            .catch((error) => {
+                toast.error(error.message)
+            });
+    };
+    return (
+        <div className="flex">
+            <div className="drawer lg:drawer-open">
+                <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+                <div className="drawer-content flex flex-col mt-6 md:mt-0 items-center lg:mt-20 container mx-auto md:p-4 ">
+                    {/* Page content here */}
+                    <Outlet></Outlet>
+                    <label htmlFor="my-drawer-2" className=" btn bg-black text-white border-y-4 border-y-main drawer-button lg:hidden absolute top-4 left-4"><FaListUl></FaListUl></label>
+
+
                 </div>
               </div>
             </Link>
