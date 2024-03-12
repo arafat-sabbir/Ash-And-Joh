@@ -33,4 +33,8 @@ export default Button;
 Button.propTypes = {
     image: PropTypes.string,
     title: PropTypes.string,
+    Icon: PropTypes.string,
+    className: PropTypes.string,
+    onClick: PropTypes.func
+
 }

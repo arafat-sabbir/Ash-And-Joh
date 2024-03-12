@@ -1,3 +1,5 @@
+import {PropTypes} from "prop-types"
+
 const SecondaryButton = ({ title, className, ...rest }) => {
     return (
         <button
@@ -22,3 +24,8 @@ const SecondaryButton = ({ title, className, ...rest }) => {
 };
 
 export default SecondaryButton;
+
+SecondaryButton.propTypes= {
+    className:PropTypes.string,
+    title:PropTypes.string
+}

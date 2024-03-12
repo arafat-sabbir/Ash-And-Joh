@@ -9,10 +9,8 @@ import Button from "@/Utils/AuthForm/Button";
 
 const Navbar = () => {
     const [formType, setFormType] = useState(null);
-
     const { isScrolled } = useIsScrolled()
-    const { user, signOutUser } = useAuth()
-
+    const { user } = useAuth()
     const NavLinks = (
         <>
             <li className="NavLink">

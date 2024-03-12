@@ -67,12 +67,11 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
             if (currentUser) {
-                const user = { email: currentUser.email,username:currentUser.displayName };
-                await axios.post("/auth/registerUser", { userEmail: user.email,username:user.username }).then((res) => {
-                    const accessToken = res.data.accessToken;
-                    setUserData(res.data.userData)
-                    if (accessToken) {
-                        localStorage.setItem("access-token", accessToken);
+                const user = { email: currentUser.email, username: currentUser.displayName };
+                await axios.post("/auth/registerUser", { userEmail: user.email, username: user.username }).then((res) => {
+                    const token = res.data.token;
+                    if (token) {
+                        localStorage.setItem("access-token", token);
                         setLoader(false);
                     }
                 });

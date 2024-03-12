@@ -4,7 +4,7 @@ import Navbar from "@/Components/Navbar/Navbar";
 
 const Home = () => {
     return (
-        <div className="h-[300vh]">
+        <div >
             <div className="">
                 <Navbar />
             </div>
