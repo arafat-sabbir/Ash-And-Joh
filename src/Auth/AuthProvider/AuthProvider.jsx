@@ -60,7 +60,8 @@ const AuthProvider = ({ children }) => {
         loader,
         signOutUser,
         updateUserProfile,
-        userData
+        userData,
+        setUserData
     };
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
