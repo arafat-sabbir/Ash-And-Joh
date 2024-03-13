@@ -6,11 +6,11 @@ import useAuth from "@/Hooks/useAuth";
 import useIsScrolled from "@/Hooks/useIsScrolled";
 import Button from "@/Utils/AuthForm/Button";
 
-
 const Navbar = () => {
     const [formType, setFormType] = useState(null);
-    const { isScrolled } = useIsScrolled()
-    const { user } = useAuth()
+    const { isScrolled } = useIsScrolled();
+    const { user } = useAuth();
+
     const NavLinks = (
         <>
             <li className="NavLink">
@@ -24,10 +24,11 @@ const Navbar = () => {
             </li>
         </>
     );
+
     return (
         <>
             <div className="bg-white">
-                <div className={`navbar ${isScrolled ? "fixed top-4 left-0 right-0  " : ""} container mx-auto`}>
+                <div className={`navbar ${isScrolled ? "fixed top-4 left-0 right-0" : ""} container mx-auto`}>
                     <div className="navbar-start">
                         <div className="dropdown">
                             <div
@@ -72,7 +73,8 @@ const Navbar = () => {
                         {user ? (
                             <>
                                 <h1 className="mr-4">{user?.displayName}</h1>
-                                <Link to={"/Dashboard/myProfile"}><Button image={user.photoURL} title={"Account"} /></Link></>
+                                <Link to={"/Dashboard/myProfile"}><Button image={user.photoURL} title={"Account"} /></Link>
+                            </>
                         ) : (
                             <Dialog>
                                 <DialogTrigger>
@@ -82,11 +84,10 @@ const Navbar = () => {
                             </Dialog>
                         )}
                     </div>
-
                 </div>
             </div>
-            <div style={{ backgroundImage: "url('https://i.ibb.co/J2DdBJh/Group-9-1.png')" }} className="bg-cover  bg-no-repeat h-[60vh] bg-center  flex justify-center items-center">
-                <h1 className="text-5xl">Ash & Joh</h1>
+            <div style={{ backgroundImage: "url('https://i.ibb.co/J2DdBJh/Group-9-1.png')" }} className="bg-cover bg-no-repeat h-[60vh] bg-center flex justify-center items-center relative">
+                <h1 className={`text-5xl absolute ${isScrolled ? "right-0 transform -translate-y-60 -translate-x-[600px]" : ""}`}>Ash & Joh</h1>
             </div>
         </>
     );

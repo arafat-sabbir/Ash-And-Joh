@@ -70,6 +70,7 @@ const AuthProvider = ({ children }) => {
                 const user = { email: currentUser.email, username: currentUser.displayName };
                 await axios.post("/auth/registerUser", { userEmail: user.email, username: user.username }).then((res) => {
                     const token = res.data.token;
+                    setUserData(res.data.userData)
                     if (token) {
                         localStorage.setItem("access-token", token);
                         setLoader(false);

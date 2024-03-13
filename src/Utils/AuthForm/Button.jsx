@@ -10,7 +10,7 @@ const Button = ({ title, image, Icon, className, onClick }) => {
             className={`flex items-center justify-center w-full transition-all duration-700 group-hover:justify-start group-hover:pl-3`}
         >
             {image ? (
-                <img className="w-10 h-10 block group-hover:pr-5 group-hover:w-10 group-hover:h-6" src={image} alt="User" />
+                <img className="w-10 rounded-full h-10 block  group-hover:hidden group-hover:h-6" src={image} alt="User" />
             ) : (
                 Icon ? (
                     <Icon className={` text-white ${className}`} size={20} />

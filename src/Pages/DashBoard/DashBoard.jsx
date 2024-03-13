@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import Button from "@/Utils/AuthForm/Button";
 
 const Dashboard = () => {
-  const { user, signOutUser } = useAuth();
+  const { userData, signOutUser } = useAuth();
   const handleSignOut = () => {
     signOutUser()
       .then()
@@ -30,11 +30,11 @@ const Dashboard = () => {
             {/* Sidebar content here */}
             <div className="absolute  bottom-4 flex ml-16 flex-col justify-center items-center">
               <img
-                src={user?.photoURL}
+                src={userData?.profilePicture}
                 className="h-20 w-20 border-2 border-main  rounded-full mx-auto "
                 alt=""
               />
-              <h1 className="font-semibold text-xl mt-2">{user?.displayName}</h1>
+              <h1 className="font-semibold text-xl mt-2">{userData?.username}</h1>
               <Button onClick={handleSignOut} className={"rotate-180"} Icon={PiSignOutFill} title={"SignOut"} />
             </div>
             <Link to={"/"} className="flex justify-center items-center min-w-full mb-10">
