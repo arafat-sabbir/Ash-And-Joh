@@ -7,7 +7,6 @@ const SecondaryButton = ({ title, className, ...rest }) => {
             className={`group relative px-4 py-2 font-medium  transition-colors duration-[400ms] hover:text-main border-2 group-hover:border-0 ${className}`}
         >
             <span>{title}</span>
-
             {/* TOP */}
             <span className="absolute left-0 top-0 h-[2px] w-0 bg-main transition-all duration-100 group-hover:w-full" />
 

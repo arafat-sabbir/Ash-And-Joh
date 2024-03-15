@@ -29,7 +29,7 @@ body {
 }
 
 .dashActive {
-  @apply scale-110 text-main font-bold tracking-wide;
+  @apply scale-110 text-main font-bold tracking-wide transition-all duration-300;
 }
 
 .submitBtn {

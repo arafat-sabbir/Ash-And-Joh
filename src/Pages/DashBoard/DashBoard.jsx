@@ -20,14 +20,14 @@ const Dashboard = () => {
     <>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content p-4">
+        <div className="drawer-content p-4 ml-80">
           {/* Page content here */}
           <Outlet></Outlet>
           <label htmlFor="my-drawer-2" className=" btn bg-black text-white border-y-4 border-y-main drawer-button lg:hidden absolute top-4 left-4"><FaListUl></FaListUl></label>
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-          <div className="menu p-4 w-80 min-h-full md:bg-transparent !bg-[#FFF6EB]">
+          <div className="menu p-4 w-80 min-h-full fixed md:bg-transparent !bg-[#FFF6EB]">
             {/* Sidebar content here */}
             <div className="absolute  bottom-4 flex ml-16 flex-col justify-center items-center">
               <img
@@ -57,8 +57,19 @@ const Dashboard = () => {
                   ? "pending"
                   : ""
             } to={"/dashboard/myProfile"}>
-              <button className="text-center py-2 bg-red-100 px-12  flex items-center justify-center min-w-full">
+              <button className="text-center py-2 bg-red-100 px-12  flex items-center justify-center min-w-full my-6">
                 <FaListCheck className="mr-4"></FaListCheck> My Profile
+              </button>
+            </NavLink>
+            <NavLink className={({ isActive, isPending }) =>
+              isActive
+                ? "dashActive"
+                : isPending
+                  ? "pending"
+                  : ""
+            } to={"/dashboard/addProduct"}>
+              <button className="text-center py-2 bg-red-100 px-12  flex items-center justify-center min-w-full">
+                <FaListCheck className="mr-4"></FaListCheck> Add Product
               </button>
             </NavLink>
           </div>

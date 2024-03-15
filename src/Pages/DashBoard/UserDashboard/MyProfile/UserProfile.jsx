@@ -1,5 +1,4 @@
 import useAuth from "@/Hooks/useAuth"
-import useAxios from "@/Hooks/useAxiosPublic"
 import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import SecondaryButton from "@/Utils/AuthForm/SecondaryButton";
 import axios from "axios";
@@ -13,24 +12,41 @@ const UserProfile = () => {
     const imageHostingKey = import.meta.env.VITE_IMAGE_HOST_KEY;
     const imageHostingAPi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
     const axiosSecure = useAxiosSecure()
-    const [profilePicture, setPhoto] = useState("")
+    const [profilePicture, setProfilePicture] = useState("")
+    const [imagePreview, setImagePreview] = useState(null);
     // photo
     const [photoName, setPhotoName] = useState(null);
+    // Get the photoName and the photoPreview
     const handlePhotoUpload = async (e) => {
         e.preventDefault();
-        if (e.target.files.length > 0) {
-            setPhotoName(e.target.files[0].name);
-            const hostedPhoto = await axios.post(imageHostingAPi, { image: e.target.files[0] }, {
+        const selectedImage = e.target.files[0];
+        if (selectedImage) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setImagePreview(reader.result);
+                setPhotoName(selectedImage.name);
+            };
+            reader.readAsDataURL(selectedImage);
+        } else {
+            setImagePreview(null);
+            setPhotoName(null);
+        }
+    };
+
+    // Submit The Form And Send the data to server
+    const handleSubmit = async (e) => {
+        const toastId = toast.loading("Updating Profile")
+        e.preventDefault();
+        const selectedImage = e.target.profileImage.files[0]
+        console.log("selectedImage", selectedImage);
+        if (selectedImage) {
+            const hostedPhoto = await axios.post(imageHostingAPi, { image: selectedImage }, {
                 headers: {
                     'content-type': 'multipart/form-data'
                 }
             });
-            setPhoto(hostedPhoto.data.data.display_url)
+            setProfilePicture(hostedPhoto.data.data.display_url)
         }
-    };
-    const handleSubmit = (e) => {
-        const toastId = toast.loading("Updating Profile")
-        e.preventDefault();
         updateUserProfile(e.target.username.value, profilePicture)
         axiosSecure.put(`/user/updateUserData/${userData._id}`, { username: e.target.username.value, profilePicture })
             .then(res => {
@@ -56,15 +72,15 @@ const UserProfile = () => {
                         </label>
                         <div className="relative w-full mb-20 mx-auto">
                             <label className="label absolute cursor-pointer -z-1 input pt-2 opacity-100   input-bordered bg-gray-100 hover:bg-gray-100 border-2 border-gray-300 w-full h-36 ">
-                                <img src={profilePicture || userData.profilePicture} className="h-32 w-44" alt="profile image" />
-                                <span className="label-text ">{photoName || (<div className="flex justify-center items-center gap-2"><LuUpload size={26} /> <p>Upload Profile Picture</p></div>)}</span>
+                                <img src={imagePreview || userData.profilePicture} className="h-32 w-44" alt="profile image" />
+                                <span className="label-text ">{photoName?.slice(0, 30) || (<div className="flex justify-center items-center gap-2"><LuUpload size={26} /> <p>Upload Profile Picture</p></div>)}</span>
                             </label>
                             <input
                                 onChange={handlePhotoUpload}
                                 accept="image/*"
                                 type="file"
                                 placeholder="upload your Photo"
-                                name="email"
+                                name="profileImage"
                                 required
                                 className="input w-full h-20  cursor-pointer pt-2 z-50 opacity-0 input-bordered bg-gray-100 hover:bg-gray-100 "
                             />
