@@ -14,12 +14,12 @@ import {
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { app } from "@/Config/firebase.config";
-import useAxios from "@/Hooks/useAxios";
+import useAxios from "@/Hooks/useAxiosPublic";
 
 export const Context = createContext("");
 
 const AuthProvider = ({ children }) => {
-    const axios = useAxios();
+    const axiosPublic = useAxios();
     const [user, setUser] = useState("");
     const [loader, setLoader] = useState(true);
     const [userData, setUserData] = useState({})
@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             if (currentUser) {
                 const user = { email: currentUser.email, username: currentUser.displayName };
-                await axios.post("/auth/registerUser", { userEmail: user.email, username: user.username }).then((res) => {
+                await axiosPublic.post("/auth/registerUser", { userEmail: user.email, username: user.username }).then((res) => {
                     const token = res.data.token;
                     setUserData(res.data.userData)
                     if (token) {
@@ -82,7 +82,7 @@ const AuthProvider = ({ children }) => {
             }
         });
         return () => unsubscribe();
-    }, [auth, axios]);
+    }, [auth, axiosPublic]);
     return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };
 

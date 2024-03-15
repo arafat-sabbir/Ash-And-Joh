@@ -5,7 +5,6 @@ const LatestArrival = () => {
             <div className="w-96 h-96 bg-blue-500"></div>
             <div className="w-96 h-96 bg-blue-500"></div>
             <div className="w-96 h-96 bg-blue-500"></div>
-
         </section>
     );
 };

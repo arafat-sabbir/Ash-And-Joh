@@ -9,6 +9,7 @@ import Button from "@/Utils/AuthForm/Button";
 const Dashboard = () => {
   const { userData, signOutUser } = useAuth();
   const handleSignOut = () => {
+    console.log("sign Out Clicked");
     signOutUser()
       .then()
       .catch((error) => {

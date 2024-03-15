@@ -1,6 +1,8 @@
 import useAuth from "@/Hooks/useAuth"
-import useAxios from "@/Hooks/useAxios"
+import useAxios from "@/Hooks/useAxiosPublic"
+import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import SecondaryButton from "@/Utils/AuthForm/SecondaryButton";
+import axios from "axios";
 import { useState } from "react"
 import toast from "react-hot-toast";
 import { LuUpload } from "react-icons/lu";
@@ -10,7 +12,7 @@ const UserProfile = () => {
     const [update, setUpdate] = useState(false)
     const imageHostingKey = import.meta.env.VITE_IMAGE_HOST_KEY;
     const imageHostingAPi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
-    const axios = useAxios()
+    const axiosSecure = useAxiosSecure()
     const [profilePicture, setPhoto] = useState("")
     // photo
     const [photoName, setPhotoName] = useState(null);
@@ -30,7 +32,7 @@ const UserProfile = () => {
         const toastId = toast.loading("Updating Profile")
         e.preventDefault();
         updateUserProfile(e.target.username.value, profilePicture)
-        axios.put(`/updateUserData/${userData._id}`, { username: e.target.username.value, profilePicture })
+        axiosSecure.put(`/user/updateUserData/${userData._id}`, { username: e.target.username.value, profilePicture })
             .then(res => {
                 setUserData(res.data.user)
                 toast.success("Profile Updated", { id: toastId })
