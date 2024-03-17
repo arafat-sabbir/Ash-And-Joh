@@ -3,6 +3,7 @@ import AddProduct from "@/Pages/DashBoard/AdminDashboard/AddProduct";
 import DashBoard from "@/Pages/DashBoard/DashBoard";
 import UserProfile from "@/Pages/DashBoard/UserDashboard/MyProfile/UserProfile";
 import Home from "@/Pages/Home/Home";
+import ProductDetail from "@/Pages/ProductDetail";
 import Shop from "@/Pages/Shop/Shop";
 import { createBrowserRouter } from "react-router-dom"
 
@@ -13,7 +14,7 @@ const routes = createBrowserRouter([
         children: [
             { path: "/", element: <Home /> },
             { path: "/shop", element: <Shop /> },
-            { path: '/productDetail/:id' }
+            { path: '/productDetail/:id', element: <ProductDetail /> }
         ]
     },
     {
