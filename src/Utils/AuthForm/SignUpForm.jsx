@@ -2,7 +2,7 @@ import useAuth from "@/Hooks/useAuth";
 import { PropTypes } from "prop-types"
 import Input from "./Input";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 const SignUpForm = ({ setFormType }) => {
     const { signUpUser, updateUserProfile } = useAuth()
     const [signUpData, setSignUpData] = useState({ username: "", email: "", password: "", confirmPassword: "" })

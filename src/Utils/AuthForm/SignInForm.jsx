@@ -1,5 +1,5 @@
 import { PropTypes } from "prop-types"
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import Input from "./Input";
 import useAuth from "@/Hooks/useAuth";
 import { useState } from "react";
@@ -41,5 +41,5 @@ export default SignInForm;
 
 SignInForm.propTypes = {
     handleSignIn: PropTypes.func,
-    setFormType: PropTypes.func 
+    setFormType: PropTypes.func
 }

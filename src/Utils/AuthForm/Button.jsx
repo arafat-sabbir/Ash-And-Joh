@@ -2,7 +2,6 @@ import { FaUserLarge } from "react-icons/fa6";
 import { PropTypes } from "prop-types"
 
 const Button = ({ title, image, Icon, className, onClick }) => {
-    console.log(image);
     return <div onClick={onClick}
         className="group flex items-center justify-start w-11 h-11 bg-red-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-400 shadow-lg hover:w-32 hover:rounded-lg "
     >

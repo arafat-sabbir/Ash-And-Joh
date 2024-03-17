@@ -1,16 +1,25 @@
+import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import ImageInput from "@/Utils/AuthForm/ImageInput";
 import Input from "@/Utils/AuthForm/Input";
 import SecondaryButton from "@/Utils/AuthForm/SecondaryButton";
 import axios from "axios";
-
 import { useState } from "react";
+import { toast } from "sonner";
 
 const AddProduct = () => {
-    const [productData, setProductData] = useState({ productName: "", description: "", brand: "", price: "", availableSize: "", availableColor: "", fabrics: "", gender: "", productImages: [] })
+    const [productData, setProductData] = useState({
+        productName: "",
+        description: "",
+        price: "",
+        fabrics: "",
+        gender: "",
+        availableSize: []
+    });
     const imageHostingKey = import.meta.env.VITE_IMAGE_HOST_KEY;
     const imageHostingAPi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
     const [imagePreview, setImagePreview] = useState(null);
     const [imageName, setImageName] = useState(null);
+    const axiosSecure = useAxiosSecure();
 
     const handleImageChange = (event) => {
         const selectedImages = event.target.files;
@@ -41,49 +50,71 @@ const AddProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        // Create FormData object
-        const formData = new FormData();
-        const selectedImages = e.target.productImages.files;
-    
-        // Iterate through selected images
-        for (let i = 0; i < selectedImages.length; i++) {
-            const selectedImage = selectedImages[i];
-    
-            // Append each image to FormData object
-            formData.append('image', selectedImage);
-        }
-    
+        const toastId = toast.loading("Adding Product");
+
         try {
-            // Array to store uploaded image URLs
-            const uploadedImageUrls = [];
-    
-            // Send a POST request for each image to the imgbb API
-            for (let i = 0; i < selectedImages.length; i++) {
-                const hostedPhoto = await axios.post(imageHostingAPi, formData, {
-                    headers: {
-                        'content-type': 'multipart/form-data'
-                    }
-                });
-    
-                // Extract URL from the response and add it to the array
-                const imageUrl = hostedPhoto.data.data.display_url;
-                uploadedImageUrls.push(imageUrl);
-            }
-    
+            const selectedImages = e.target.productImages.files;
+
+            const productImages = await Promise.all(
+                Array.from(selectedImages).map(async (image) => {
+                    const formData = new FormData();
+                    formData.append('image', image);
+
+                    const hostedPhoto = await axios.post(imageHostingAPi, formData, {
+                        headers: {
+                            'content-type': 'multipart/form-data'
+                        }
+                    });
+
+                    return hostedPhoto.data.data.display_url;
+                })
+            );
+
+            // Verify uploaded image URLs
+            console.log("Uploaded images:", productImages);
+
             // Update productData with all uploaded image URLs
-            setProductData({ ...productData, productImages: uploadedImageUrls });
-    
-            // Proceed with other form data submission or processing
-            console.log("Uploaded images:", uploadedImageUrls);
-    
-            // Example: Send productData to server or perform other actions
-            // await sendProductDataToServer(productData);
+            setProductData(prevState => {
+                console.log("data with image", { ...prevState, productImages: productImages });
+                return { ...prevState, productImages: productImages };
+              });
+            console.log("data with image", productData);
+            // Send product data to the backend
+            const response = await axiosSecure.post('/products/addProduct', productData);
+            console.log(response.data);
+            if (response.status === 200) {
+                toast.success("Product Added Successfully", { id: toastId });
+                e.target.reset();
+                setProductData(prevState => ({
+                    ...prevState,
+                    productImages: [] // Clear productImages state
+                }));
+                setImagePreview(null); // Clear imagePreview state
+            } else {
+                toast.error(response.data.message || "Error Adding Product", { id: toastId });
+            }
+            console.log("Backend Response:", response.data);
         } catch (error) {
-            console.error("Error uploading images:", error);
+            console.error("Error uploading images or sending product data:", error);
         }
     };
-    
+
+
+    const handleAvailableSize = (e) => {
+        const size = e.target.value;
+        if (e.target.checked) {
+            setProductData(prevState => ({
+                ...prevState,
+                availableSize: [...prevState.availableSize, size] // Add size to availableSize array
+            }));
+        } else {
+            setProductData(prevState => ({
+                ...prevState,
+                availableSize: prevState.availableSize.filter((facility) => facility !== size) // Remove size from availableSize array
+            }));
+        }
+    };
+
     console.log(productData);
     return (
         <section className="h-full">
@@ -92,10 +123,32 @@ const AddProduct = () => {
                 <Input type="text" name={"Product Name"} onChange={(e) => setProductData({ ...productData, productName: e.target.value })} />
                 <Input type="text" name={"description"} onChange={(e) => setProductData({ ...productData, description: e.target.value })} />
                 <Input type="number" name={"price"} onChange={(e) => setProductData({ ...productData, price: e.target.value })} />
-                <Input type="text" name={"Available Sizes"} onChange={(e) => setProductData({ ...productData, availableSize: e.target.value })} />
-                <Input type="text" name={"Available Colors"} onChange={(e) => setProductData({ ...productData, availableColor: e.target.value })} />
                 <Input type="text" name={"Build Material"} onChange={(e) => setProductData({ ...productData, fabrics: e.target.value })} />
                 <Input type="text" name={"Gender"} onChange={(e) => setProductData({ ...productData, gender: e.target.value })} />
+                <div>
+                    <h3 className="font-medium my-4">Available Size</h3>
+                    <div className="flex items-center gap-8">
+                        <div className="flex gap-2">
+                            <input type="checkbox" value={"S"} onChange={handleAvailableSize} className="checkbox  checkbox-neutral" />
+                            <span>S</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <input type="checkbox" value={"M"} onChange={handleAvailableSize} className="checkbox  checkbox-neutral" />
+                            <span>M</span>
+                        </div> <div className="flex gap-2">
+                            <input type="checkbox" value={"L"} onChange={handleAvailableSize} className="checkbox  checkbox-neutral" />
+                            <span>L</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <input type="checkbox" value={"XL"} onChange={handleAvailableSize} className="checkbox  checkbox-neutral" />
+                            <span>XL</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <input type="checkbox" value={"XXL"} onChange={handleAvailableSize} className="checkbox checkbox-neutral" />
+                            <span>XXL</span>
+                        </div>
+                    </div>
+                </div>
                 {/* Input field for image selection */}
                 <ImageInput name="productImages" imageName={imageName} imagePreview={imagePreview} onChange={handleImageChange} label={"Upload Product Images"} />
                 <SecondaryButton title={"Add Product"} type="submit" />

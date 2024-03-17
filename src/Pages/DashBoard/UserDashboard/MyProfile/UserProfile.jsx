@@ -3,7 +3,7 @@ import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import SecondaryButton from "@/Utils/AuthForm/SecondaryButton";
 import axios from "axios";
 import { useState } from "react"
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { LuUpload } from "react-icons/lu";
 
 const UserProfile = () => {

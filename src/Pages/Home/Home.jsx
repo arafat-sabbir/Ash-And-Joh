@@ -5,9 +5,9 @@ import Navbar from "@/Components/Navbar/Navbar";
 
 const Home = () => {
     return (
-        <div >
-            <div className="h-[300vh]">
-                <Navbar />
+        <div className="h-[500vh]">
+            <Navbar />
+            <div className="container ">
                 <LatestArrival />
             </div>
         </div>

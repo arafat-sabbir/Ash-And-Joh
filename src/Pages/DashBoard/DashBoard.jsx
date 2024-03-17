@@ -3,7 +3,7 @@ import { FaListCheck } from "react-icons/fa6";
 import { PiSignOutFill } from "react-icons/pi";
 import { FaListUl } from "react-icons/fa6";
 import useAuth from "@/Hooks/useAuth";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import Button from "@/Utils/AuthForm/Button";
 
 const Dashboard = () => {
