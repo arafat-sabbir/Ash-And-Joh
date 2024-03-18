@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import AuthForm from "@/Utils/AuthForm/AuthForm";
 import { useState } from "react";
@@ -10,6 +10,7 @@ const Navbar = () => {
     const [formType, setFormType] = useState(null);
     const { isScrolled } = useIsScrolled();
     const { user } = useAuth();
+    const { pathname } = useLocation()
 
     const NavLinks = (
         <>
@@ -86,9 +87,9 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-            <div style={{ backgroundImage: "url('https://i.ibb.co/J2DdBJh/Group-9-1.png')" }} className="bg-cover bg-no-repeat h-[60vh] bg-center flex justify-center items-center relative">
+            {pathname === "/" && <div style={{ backgroundImage: "url('https://i.ibb.co/J2DdBJh/Group-9-1.png')" }} className="bg-cover bg-no-repeat h-[60vh] bg-center flex justify-center items-center relative">
                 <h1 className={`text-5xl absolute ${isScrolled ? "right-0 transform -translate-y-60 -translate-x-[600px]" : ""}`}>Ash & Joh</h1>
-            </div>
+            </div>}
         </>
     );
 };
