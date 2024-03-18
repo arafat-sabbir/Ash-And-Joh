@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const LatestArrival = () => {
     const { allProduct, isLoading, refetch } = useAllProduct()
-    console.log(allProduct, isLoading);
     return (
         <section>
             <h1 className="text-3xl font-semibold text-center my-10">Latest Arrival</h1>

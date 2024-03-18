@@ -68,8 +68,19 @@ const Dashboard = () => {
                   ? "pending"
                   : ""
             } to={"/dashboard/addProduct"}>
-              <button className="text-center py-2 bg-red-100 px-12  flex items-center justify-center min-w-full">
+              <button className="text-center py-2 bg-red-100 px-12  flex items-center justify-center min-w-full mb-6">
                 <FaListCheck className="mr-4"></FaListCheck> Add Product
+              </button>
+            </NavLink>
+            <NavLink className={({ isActive, isPending }) =>
+              isActive
+                ? "dashActive"
+                : isPending
+                  ? "pending"
+                  : ""
+            } to={"/dashboard/manageProduct"}>
+              <button className="text-center py-2 bg-red-100 px-12  flex items-center justify-center min-w-full mb-6">
+                <FaListCheck className="mr-4"></FaListCheck> Manage Product
               </button>
             </NavLink>
           </div>
