@@ -46,9 +46,10 @@ const UserProfile = () => {
                 }
             });
             setProfilePicture(hostedPhoto.data.data.display_url)
+            console.log(hostedPhoto.data.data.display_url, "pric", profilePicture);
         }
-        updateUserProfile(e.target.username.value, profilePicture)
-        axiosSecure.put(`/user/updateUserData/${userData._id}`, { username: e.target.username.value, profilePicture })
+        await updateUserProfile(e.target.username.value, profilePicture)
+        await axiosSecure.put(`/user/updateUserData/${userData._id}`, { username: e.target.username.value, profilePicture })
             .then(res => {
                 setUserData(res.data.user)
                 toast.success("Profile Updated", { id: toastId })

@@ -73,7 +73,6 @@ const Navbar = () => {
                         </ul>
                         {user ? (
                             <>
-                                <h1 className="mr-4">{user?.displayName}</h1>
                                 <Link to={"/Dashboard/myProfile"}><Button image={user.photoURL} title={"Account"} /></Link>
                             </>
                         ) : (
