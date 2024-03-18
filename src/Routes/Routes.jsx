@@ -1,5 +1,6 @@
 import RootLayout from "@/Layout/RootLayout/RootLayout"
 import AddProduct from "@/Pages/DashBoard/AdminDashboard/AddProduct";
+import ManageProduct from "@/Pages/DashBoard/AdminDashboard/ManageProduct";
 import DashBoard from "@/Pages/DashBoard/DashBoard";
 import UserProfile from "@/Pages/DashBoard/UserDashboard/MyProfile/UserProfile";
 import Home from "@/Pages/Home/Home";
@@ -22,7 +23,8 @@ const routes = createBrowserRouter([
         element: <DashBoard />,
         children: [
             { path: 'myProfile', element: <UserProfile /> },
-            { path: "addProduct", element: <AddProduct /> }
+            { path: "addProduct", element: <AddProduct /> },
+            { path: "manageProduct", element: <ManageProduct /> }
         ]
     }
 ])

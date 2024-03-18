@@ -6,10 +6,15 @@ const LatestArrival = () => {
     return (
         <section>
             <h1 className="text-3xl font-semibold text-center my-10">Latest Arrival</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center lg:grid-cols-3 xl:grid-cols-4">
-                {allProduct?.data?.map((product, index) => <Link state={product} to={`/productDetail/${product._id}`} className="bg-white border-2 hover:border-black transition-all duration-300 rounded-md  h-[537px] w-[325px] p-4 " key={index}>
-                    <img src={product.productImages[0]} alt="" />
-                    <h1>{product.productName}</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-items-center lg:grid-cols-3 xl:grid-cols-4">
+                {allProduct?.map((product, index) => <Link state={product} to={`/productDetail/${product._id}`} className="  " key={index}>
+                    <div key={index} className="card">
+                        <div className="bg p-4">
+                            <img src={product.productImages[0]} alt="" />
+                            <h1>{product.productName}</h1>
+                        </div>
+                        <div className="blob"></div>
+                    </div>
                 </Link>)}
             </div>
         </section>
