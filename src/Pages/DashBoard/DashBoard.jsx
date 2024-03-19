@@ -83,6 +83,17 @@ const Dashboard = () => {
                 <FaListCheck className="mr-4"></FaListCheck> Manage Product
               </button>
             </NavLink>
+            <NavLink className={({ isActive, isPending }) =>
+              isActive
+                ? "dashActive"
+                : isPending
+                  ? "pending"
+                  : ""
+            } to={"/dashboard/myCart"}>
+              <button className="text-center py-2 bg-red-100 px-12  flex items-center justify-center min-w-full mb-6">
+                <FaListCheck className="mr-4"></FaListCheck> My Cart
+              </button>
+            </NavLink>
           </div>
 
         </div>

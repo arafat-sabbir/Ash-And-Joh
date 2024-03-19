@@ -4,13 +4,20 @@ import { useLocation } from "react-router-dom";
 import { MdOutlineShoppingBag } from "react-icons/md"
 import { FiPlus, FiMinus } from "react-icons/fi";
 import useAuth from '@/Hooks/useAuth';
+import useAxiosSecure from '@/Hooks/useAxiosSecure';
+import { toast } from 'sonner';
+import useCartProduct from '@/Utils/Hooks/Api/useCartProduct';
 
 const ProductDetail = () => {
+    const axiosSecure = useAxiosSecure()
     const { state: productData } = useLocation()
+    const [loading, setLoading] = useState(false)
+    const { refetch } = useCartProduct()
     const [currentSlider, setCurrentSlider] = useState(0);
-    const [selectedSize, setSelectedSize] = useState("L")
+    const [selectedSize, setSelectedSize] = useState("")
     const [quantity, setQuantity] = useState(1)
     const { userData } = useAuth()
+
     const increaseQuantity = () => {
         setQuantity(quantity + 1)
     }
@@ -20,17 +27,24 @@ const ProductDetail = () => {
         }
     }
     const cartData = {
-        quantity,
+        quantity: parseInt(quantity),
         size: selectedSize,
-        productId: productData._id,
+        productData: productData._id,
         userId: userData._id
     }
     const addToCart = () => {
-        console.log(cartData);
+        setLoading(true)
+        const toastId = toast.loading("Product Adding To Cart")
+        axiosSecure.put('/cart/addToCart', cartData)
+            .then(res => {
+                if (res.status === 200) {
+                    refetch()
+                    setLoading(false)
+                    toast.success(res.message || "Product Added To Cart", { id: toastId })
+                }
+            })
+            .catch(err => toast.success(err || "Error Adding Product to Cart", { id: toastId }))
     }
-
-
-
     return (
         <section className='flex justify-center container border-2 divide-x-2'>
             <div className=' text-center w-2/3'>
@@ -58,8 +72,13 @@ const ProductDetail = () => {
                 <h1>ট {productData.price}</h1>
                 <p>{productData.description}</p>
                 <div className='flex gap-4'>
-                    <div className='border-2 w-[150px] py-3 flex items-center justify-center gap-3 '><button onClick={decreaseQuantity}><FiMinus size={18} /></button> <span className='text-xl'>{quantity}</span> <button onClick={increaseQuantity}><FiPlus /></button> </div>
-                    <button onClick={addToCart} className='flex gap-1 border-2 w-[150px] py-3  items-center justify-center hover:bg-black hover:text-white transition-all duration-300'>Add To Cart <MdOutlineShoppingBag /></button>
+                    <div className='border-2 w-[150px] py-3 flex items-center justify-center gap-3 '>
+                        <button onClick={decreaseQuantity}><FiMinus size={18} /></button>
+                        <span className='text-xl'>{quantity}</span>
+                        <button onClick={increaseQuantity}><FiPlus />
+                        </button>
+                    </div>
+                    <button onClick={addToCart} disabled={loading || !selectedSize} className='flex gap-1 disabled:bg-transparent border-2 w-[150px] py-3  items-center justify-center hover:bg-black hover:text-white disabled:hover:text-black transition-all duration-300'>Add To Cart <MdOutlineShoppingBag /></button>
                 </div>
             </div>
         </section>

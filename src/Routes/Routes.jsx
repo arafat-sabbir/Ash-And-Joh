@@ -2,6 +2,7 @@ import RootLayout from "@/Layout/RootLayout/RootLayout"
 import AddProduct from "@/Pages/DashBoard/AdminDashboard/AddProduct";
 import ManageProduct from "@/Pages/DashBoard/AdminDashboard/ManageProduct";
 import DashBoard from "@/Pages/DashBoard/DashBoard";
+import MyCart from "@/Pages/DashBoard/UserDashboard/MyProfile/MyCart";
 import UserProfile from "@/Pages/DashBoard/UserDashboard/MyProfile/UserProfile";
 import Home from "@/Pages/Home/Home";
 import ProductDetail from "@/Pages/ProductDetail";
@@ -24,7 +25,8 @@ const routes = createBrowserRouter([
         children: [
             { path: 'myProfile', element: <UserProfile /> },
             { path: "addProduct", element: <AddProduct /> },
-            { path: "manageProduct", element: <ManageProduct /> }
+            { path: "manageProduct", element: <ManageProduct /> },
+            { path: "myCart", element: <MyCart /> }
         ]
     }
 ])

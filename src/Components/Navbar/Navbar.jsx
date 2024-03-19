@@ -5,12 +5,15 @@ import { useState } from "react";
 import useAuth from "@/Hooks/useAuth";
 import useIsScrolled from "@/Hooks/useIsScrolled";
 import Button from "@/Utils/AuthForm/Button";
+import useCartProduct from "@/Utils/Hooks/Api/useCartProduct";
+import { MdOutlineShoppingBag } from "react-icons/md";
 
 const Navbar = () => {
     const [formType, setFormType] = useState(null);
     const { isScrolled } = useIsScrolled();
     const { user } = useAuth();
     const { pathname } = useLocation()
+    const { cartProduct } = useCartProduct()
 
     const NavLinks = (
         <>
@@ -73,6 +76,8 @@ const Navbar = () => {
                         </ul>
                         {user ? (
                             <>
+                                {cartProduct?.length > 0 && <Link to={"/dashboard/myCart"} className="relative mr-6 bg-red-500 p-2 rounded-full text-white"><span><MdOutlineShoppingBag size={24} /></span> <span className="absolute bottom-6 left-7 text-black text-xl font-medium">{cartProduct?.length}</span></Link>}
+
                                 <Link to={"/Dashboard/myProfile"}><Button image={user.photoURL} title={"Account"} /></Link>
                             </>
                         ) : (
