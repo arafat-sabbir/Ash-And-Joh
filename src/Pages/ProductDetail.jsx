@@ -29,6 +29,7 @@ const ProductDetail = () => {
     const cartData = {
         quantity: parseInt(quantity),
         size: selectedSize,
+        totalPrice: parseInt(productData.price * quantity),
         productData: productData._id,
         userId: userData._id
     }
