@@ -1,5 +1,7 @@
 import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import useAllProduct from "@/Utils/Hooks/Api/useAllProduct";
+import { MdDeleteOutline } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
 import { toast } from "sonner";
 
 const ManageProduct = () => {
@@ -31,22 +33,74 @@ const ManageProduct = () => {
     return (
         <div>
             <h1>{allProduct?.length}</h1>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-10 justify-center items-center justify-items-center">
-                {
-                    allProduct.map((product, index) => <div key={index} className="card">
-                        <div className="bg">
-                            <img src={product.productImages[0]} alt="" />
-                            <h1>{product.productName}</h1>
-                            <div className="flex justify-between">
-                                <button className="btn">Edit</button>
-                                <button className="btn" onClick={() => handleDeleteProduct(product._id)}>Delete</button>
-
-                            </div>
+            <div className="h-full w-full flex flex-col justify-center ">
+                <div className="flex flex-col mb-10">
+                    <h1 className="text-3xl font-semibold text-center mb-10 ">
+                        Product On Your Cart
+                    </h1>
+                    <div className="flex flex-col lg:container max-w-[98vw] mx-auto">
+                        <div className="overflow-x-auto border-2 rounded-xl">
+                            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                                        >
+                                            Product Image
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                                        >
+                                            Product Price
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                                        >
+                                            Selected Size
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                                        >
+                                            Quantity
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                                        >
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                                    {allProduct?.map((item) => (
+                                        <tr key={item._id}>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
+                                                <img src={item.productImages[0]} className="w-16 cursor-pointer h-16 rounded-xl" alt="" />
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                                                {item.price} Tk
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                                                {item.productName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
+                                                {item.availableSize.map(size => size)}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 flex space-x-2">
+                                                <button onClick={() => handleDeleteProduct(item._id)} className="p-2 rounded-full bg-red-500 text-white hover:bg-red-500 border-none"><MdDeleteOutline size={20} /> </button>
+                                                <button onClick={() => handleDeleteProduct(item._id)} className="p-2 rounded-full bg-red-500 text-white hover:bg-red-500 border-none"><MdDeleteOutline size={20} /> </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
-                        <div className="blob"></div>
-
-                    </div>)
-                }
+                    </div>
+                </div>
             </div>
         </div>
     );

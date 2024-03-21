@@ -93,7 +93,6 @@ const MyCart = () => {
   const grandTotalPrice = cartProduct.reduce((total, item) => total + item.totalPrice, 0);
   return (
     <div className="h-full w-full flex flex-col justify-center ">
-      {cartProduct?.map((product, index) => <div key={index}>{console.log(product.productData)}</div>)}
       <div className="flex flex-col mb-10">
         <h1 className="text-3xl font-semibold text-center mb-10 ">
           Product On Your Cart
