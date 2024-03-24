@@ -138,10 +138,11 @@ const MyCart = () => {
                 {cartProduct?.map((item) => (
                   <tr key={item._id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
-                      <img src={item.productData.productImages[0]} className="w-16 cursor-pointer h-16 rounded-xl" alt="" />
+                     { console.log(item?.productData?.productImages.length,"random number",Math.random()*item?.productData?.productImages.length)}
+                      <img src={item?.productData?.productImages[Math.round(Math.random()*item?.productData?.productImages.length-1)]} className="w-16 cursor-pointer h-16 rounded-xl" alt="" />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                      {item.productData.price} Tk
+                      {item?.productData?.price} Tk
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
                       {item.size}

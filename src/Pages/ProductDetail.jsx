@@ -7,11 +7,15 @@ import useAuth from '@/Hooks/useAuth';
 import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import { toast } from 'sonner';
 import useCartProduct from '@/Utils/Hooks/Api/useCartProduct';
+import AuthForm from '@/Utils/AuthForm/AuthForm';
 
 const ProductDetail = () => {
     const axiosSecure = useAxiosSecure()
+    const [formType, setFormType] = useState(null);
+
     const { state: productData } = useLocation()
     const [loading, setLoading] = useState(false)
+    const {user} = useAuth()
     const { refetch } = useCartProduct()
     const [currentSlider, setCurrentSlider] = useState(0);
     const [selectedSize, setSelectedSize] = useState("")
@@ -34,7 +38,10 @@ const ProductDetail = () => {
         userId: userData._id
     }
     const addToCart = () => {
-        setLoading(true)
+        if(!user){
+          return  toast.error("Please Login To Add Product On Cart")
+        }
+        // setLoading(true)
         const toastId = toast.loading("Product Adding To Cart")
         axiosSecure.put('/cart/addToCart', cartData)
             .then(res => {

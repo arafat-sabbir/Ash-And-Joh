@@ -10,6 +10,7 @@ import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/C
 
 const AuthForm = ({ formType, setFormType }) => {
     // eslint-disable-next-line no-unused-vars
+    console.log("from authFrom");
     const [dialogOpen, setDialogOpen] = useState(true);
     return (
         <div>
