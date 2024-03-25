@@ -1,3 +1,4 @@
+import { useEffect } from 'react'; // Import useEffect for side effects
 import TableSkeleton from "@/Components/Skeleton/TableSkeleton";
 import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import useCartProduct from "@/Utils/Hooks/Api/useCartProduct";
@@ -8,22 +9,40 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
 const MyCart = () => {
-  const { cartProduct, refetch, isLoading, isPending } = useCartProduct();
+  const { cartProduct,grandTotal, refetch, isLoading, isPending } = useCartProduct();
   const axiosSecure = useAxiosSecure();
   const [editableProductId, setEditableProductId] = useState(null); // Track editable product ID
- const [quantities, setQuantities] = useState(() => {
-  // Initialize quantities with current quantities from cartProduct
-  const initialQuantities = {};
-  cartProduct.forEach(item => {
-    initialQuantities[item._id] = item.quantity;
-  });
-  return initialQuantities;
-});
+  const [quantities, setQuantities] = useState({}); // Initialize quantities as an empty object
+  const [loadingCart, setLoadingCart] = useState(true); // Add loading state for cart
 
-  console.log(quantities, "quantities");
-  const editQuantities = () => {
-    console.log(quantities);
-  }
+  // Use useEffect to update quantities when cartProduct changes
+  useEffect(() => {
+    if (cartProduct) {
+      const initialQuantities = {};
+      cartProduct.forEach(item => {
+        initialQuantities[item._id] = item.quantity;
+      });
+      setQuantities(initialQuantities);
+      setLoadingCart(false); // Set loadingCart to false when cartProduct is available
+    }
+  }, [cartProduct]);
+
+  const editQuantities = async (id) => {
+    if (Object.prototype.hasOwnProperty.call(quantities, id)) {
+      const quantity = quantities[id];
+      const response = await axiosSecure.patch(`/cart/updateCartProduct/${id}`, { quantity });
+      console.log(response.data);
+      if (response.status === 200) {
+        refetch()
+        toast.success("Cart Updated SuccessFully");
+      } else {
+        toast.error("Error While Updating Product");
+      }
+      // Do whatever you need with the quantity here
+    } else {
+      console.log(`ID ${id} not found in quantities object`);
+    }
+  };
 
   const increaseQuantity = (productId) => {
     setQuantities((prevQuantities) => ({
@@ -63,12 +82,9 @@ const MyCart = () => {
     setEditableProductId(productId === editableProductId ? null : productId);
   };
 
-  if (isLoading || isPending) {
-    return <TableSkeleton />
+  if (isLoading || isPending || loadingCart) { // Add loadingCart to condition
+    return <TableSkeleton />;
   }
-
-
-  const grandTotalPrice = cartProduct.reduce((total, item) => total + item.totalPrice, 0);
 
   return (
     <div className="h-full w-full flex flex-col justify-center">
@@ -128,7 +144,7 @@ const MyCart = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 flex gap-2">
                       {/* Edit/Publish button */}
                       {item._id === editableProductId ? (
-                        <button onClick={() => toggleEdit(item._id)} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
+                        <button onClick={() => { toggleEdit(item._id); editQuantities(item._id); }} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
                           {item._id === editableProductId ? <MdPublishedWithChanges size={20} /> : <FiEdit size={20} />}
                         </button>
                       ) : (
@@ -149,7 +165,7 @@ const MyCart = () => {
             {/* Total Price */}
             <div className="flex justify-between mb-2 pr-12 pl-5 border-t-2 py-2">
               <h1 className="text-xl font-medium">Total Price</h1>
-              <h1 className="text-xl font-medium">{grandTotalPrice}Tk</h1>
+              <h1 className="text-xl font-medium">{grandTotal} Tk</h1>
             </div>
           </div>
         </div>

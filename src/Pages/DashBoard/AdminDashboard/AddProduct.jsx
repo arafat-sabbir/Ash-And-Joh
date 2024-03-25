@@ -13,6 +13,7 @@ const AddProduct = () => {
         price: "",
         fabrics: "",
         gender: "",
+        availAbleOnStock: 0,
         availableSize: []
     });
     const imageHostingKey = import.meta.env.VITE_IMAGE_HOST_KEY;
@@ -77,7 +78,7 @@ const AddProduct = () => {
             setProductData(prevState => {
                 console.log("data with image", { ...prevState, productImages: productImages });
                 return { ...prevState, productImages: productImages };
-              });
+            });
             console.log("data with image", productData);
             // Send product data to the backend
             const response = await axiosSecure.post('/products/addProduct', productData);
@@ -123,6 +124,7 @@ const AddProduct = () => {
                 <Input type="text" name={"Product Name"} onChange={(e) => setProductData({ ...productData, productName: e.target.value })} />
                 <Input type="text" name={"description"} onChange={(e) => setProductData({ ...productData, description: e.target.value })} />
                 <Input type="number" name={"price"} onChange={(e) => setProductData({ ...productData, price: e.target.value })} />
+                <Input type="number" name={"availAble On Stock"} onChange={(e) => setProductData({ ...productData, availAbleOnStock: e.target.value })} />
                 <Input type="text" name={"Build Material"} onChange={(e) => setProductData({ ...productData, fabrics: e.target.value })} />
                 <Input type="text" name={"Gender"} onChange={(e) => setProductData({ ...productData, gender: e.target.value })} />
                 <div>
