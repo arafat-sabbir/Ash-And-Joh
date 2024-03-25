@@ -4,12 +4,14 @@ import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import useCartProduct from "@/Utils/Hooks/Api/useCartProduct";
 import { useState } from "react";
 import { FiEdit, FiMinus, FiPlus } from "react-icons/fi";
-import { MdDeleteOutline, MdPublishedWithChanges } from "react-icons/md";
+import { MdOutlineCancel } from "react-icons/md";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import { MdDeleteOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
 const MyCart = () => {
-  const { cartProduct,grandTotal, refetch, isLoading, isPending } = useCartProduct();
+  const { cartProduct, grandTotal, refetch, isLoading, isPending } = useCartProduct();
   const axiosSecure = useAxiosSecure();
   const [editableProductId, setEditableProductId] = useState(null); // Track editable product ID
   const [quantities, setQuantities] = useState({}); // Initialize quantities as an empty object
@@ -121,18 +123,18 @@ const MyCart = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
                       {/* Selected Size */}
-                      {item.size}
+                      <span className='bg-gray-200 px-2 rounded-md'>{item.size}</span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
                       {/* Quantity */}
-                      <div className={`py-3 flex items-center justify-center gap-3 ${item._id === editableProductId ? "border-2" : ""}`}>
+                      <div className={`py-3 flex items-center justify-center gap-3 ${item._id === editableProductId ? "border rounded-md" : ""}`}>
                         {/* Decrease quantity button */}
                         {item._id === editableProductId && (
                           <button onClick={() => decreaseQuantity(item._id)}>
                             <FiMinus size={18} />
                           </button>
                         )}
-                        <span className="text-xl">{quantities[item._id] || item.quantity}</span>
+                        <span className="text-lg bg-gray-200 px-2 rounded-md">{quantities[item._id] || item.quantity}</span>
                         {/* Increase quantity button */}
                         {item._id === editableProductId && (
                           <button onClick={() => increaseQuantity(item._id)}>
@@ -144,9 +146,14 @@ const MyCart = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 flex gap-2">
                       {/* Edit/Publish button */}
                       {item._id === editableProductId ? (
-                        <button onClick={() => { toggleEdit(item._id); editQuantities(item._id); }} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
-                          {item._id === editableProductId ? <MdPublishedWithChanges size={20} /> : <FiEdit size={20} />}
-                        </button>
+                        <>
+                          <button onClick={() => { toggleEdit(item._id); editQuantities(item._id); }} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
+                            {item._id === editableProductId ? <IoIosCheckmarkCircleOutline size={20} /> : <FiEdit size={20} />}
+                          </button>
+                          <button onClick={() => toggleEdit(item._id)} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
+                            <MdOutlineCancel size={20} />
+                          </button>
+                        </>
                       ) : (
                         <>
                           <button onClick={() => toggleEdit(item._id)} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
