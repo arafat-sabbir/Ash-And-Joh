@@ -4,7 +4,7 @@ import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import useCartProduct from "@/Utils/Hooks/Api/useCartProduct";
 import { useState } from "react";
 import { FiEdit, FiMinus, FiPlus } from "react-icons/fi";
-import { MdOutlineCancel } from "react-icons/md";
+import { MdOutlineCancel, MdPublishedWithChanges } from "react-icons/md";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ const MyCart = () => {
   const [editableProductId, setEditableProductId] = useState(null); // Track editable product ID
   const [quantities, setQuantities] = useState({}); // Initialize quantities as an empty object
   const [loadingCart, setLoadingCart] = useState(true); // Add loading state for cart
+  const [cancelEdit, setCancelEdit] = useState(true)
 
   // Use useEffect to update quantities when cartProduct changes
   useEffect(() => {
@@ -27,7 +28,7 @@ const MyCart = () => {
       setQuantities(initialQuantities);
       setLoadingCart(false); // Set loadingCart to false when cartProduct is available
     }
-  }, [cartProduct]);
+  }, [cartProduct, cancelEdit]);
 
   const editQuantities = async (id) => {
     if (Object.prototype.hasOwnProperty.call(quantities, id)) {
@@ -45,6 +46,10 @@ const MyCart = () => {
       console.log(`ID ${id} not found in quantities object`);
     }
   };
+
+  const handleCancelEdit = () => {
+    setCancelEdit(!cancelEdit)
+  }
 
   const increaseQuantity = (productId) => {
     setQuantities((prevQuantities) => ({
@@ -150,7 +155,7 @@ const MyCart = () => {
                           <button onClick={() => { toggleEdit(item._id); editQuantities(item._id); }} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
                             {item._id === editableProductId ? <IoIosCheckmarkCircleOutline size={20} /> : <FiEdit size={20} />}
                           </button>
-                          <button onClick={() => toggleEdit(item._id)} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
+                          <button onClick={() => { toggleEdit(item._id), handleCancelEdit(item._id) }} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
                             <MdOutlineCancel size={20} />
                           </button>
                         </>
