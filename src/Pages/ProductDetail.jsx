@@ -50,9 +50,9 @@ const ProductDetail = () => {
             .catch(err => toast.success(err || "Error Adding Product to Cart", { id: toastId }))
     }
     return (
-        <section className='flex justify-center container border-2 divide-x-2'>
+        <section className='flex justify-center gap-6 container border-2 divide-x-2 my-10 sm:flex-1'>
             <div className=' text-center w-2/3'>
-                <div className='md:h-[700px] '>
+                <div className='md:h-[700px]'>
                     <div className="w-full h-60 sm:h-96 md:min-h-full flex border-2 border-red-500 flex-col items-center justify-center gap-5 lg:gap-10 bg-cover bg-top before:absolute  before:inset-0 transform duration-400 ease-linear"
                     >
                         <img src={productData.productImages[currentSlider]} alt="" />
@@ -68,20 +68,22 @@ const ProductDetail = () => {
                     ))}
                 </div>
             </div>
-            <div className='flex-1'>
-                <h1>{productData.productName}</h1>
+            <div className='flex-1 px-5'>
+                <h1 className='text-3xl font-bold my-5'>{productData.productName}</h1>
+                <p className='text-xl mb-5'>{productData.description}</p>
+                <h2 className="text-xl font-medium">Availability: In Stock</h2>
+                <h1 className='text-2xl font-bold my-5 text-red-600'>ট {productData.price}</h1>
                 <div className='flex gap-4 items-center'>
-                    <span className='text-2xl font-medium'>AvailAble Size</span> {productData.availableSize.map((size, index) => <button onClick={() => setSelectedSize(size)} className={`btn rounded-full ${selectedSize === size ? "btn-neutral" : "btn-outline "}`} key={index}>{size}</button>)}
+                    <span className='text-xl  font-medium'>AvailAble Size</span> {productData.availableSize.map((size, index) => <button onClick={() => setSelectedSize(size)} className={`btn rounded-full ${selectedSize === size ? "btn-neutral" : "btn-outline "}`} key={index}>{size}</button>)}
                 </div>
-                <h1>ট {productData.price}</h1>
-                <p>{productData.description}</p>
-                <div className='flex gap-4'>
+                <div className='flex gap-4 my-10'>
                     <div className='border-2 w-[150px] py-3 flex items-center justify-center gap-3 '>
                         <button onClick={decreaseQuantity}><FiMinus size={18} /></button>
                         <span className='text-xl'>{quantity}</span>
                         <button onClick={increaseQuantity}><FiPlus />
                         </button>
                     </div>
+                    
                     <button onClick={addToCart} disabled={loading || !selectedSize} className='flex gap-1 disabled:bg-transparent border-2 w-[150px] py-3  items-center justify-center hover:bg-black hover:text-white disabled:hover:text-black transition-all duration-300'>Add To Cart {loading?<AiOutlineLoading className='animate-spin'/>: <MdOutlineShoppingBag />}</button>
                 </div>
             </div>

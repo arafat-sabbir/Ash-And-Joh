@@ -31,7 +31,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div className="bg-white z-50">
+            <div className="bg-white :z-50">
                 <div className={`navbar ${isScrolled ? " top-4 left-0 right-0" : ""} container mx-auto`}>
                     <div className="navbar-start">
                         <div className="dropdown">
@@ -91,7 +91,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-            {pathname === "/" && <div style={{ backgroundImage: "url('https://i.ibb.co/J2DdBJh/Group-9-1.png')" }} className="bg-cover bg-no-repeat h-[60vh] bg-center flex justify-center items-center relative">
+            {pathname === "/" && <div style={{ backgroundImage: "url('https://d1csarkz8obe9u.cloudfront.net/posterpreviews/custom-t-shirts-banner-design-template-4900533935ea094ef9a9b73571605d04_screen.jpg?ts=1686050363')" }} className="bg-cover bg-no-repeat h-[60vh] bg-center flex justify-center items-center relative">
                 <h1 className={`text-5xl absolute ${isScrolled ? "right-0 transform -translate-y-60 -translate-x-[600px]" : ""}`}>Ash & Joh</h1>
             </div>}
         </>
