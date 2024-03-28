@@ -89,7 +89,7 @@ const MyCart = () => {
     setEditableProductId(productId === editableProductId ? null : productId);
   };
 
-  if (isLoading || isPending || loadingCart) { // Add loadingCart to condition
+  if (isLoading || isPending) { // Add loadingCart to condition
     return <TableSkeleton />;
   }
 
