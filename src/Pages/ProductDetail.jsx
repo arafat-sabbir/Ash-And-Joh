@@ -10,6 +10,7 @@ import useCartProduct from '@/Utils/Hooks/Api/useCartProduct';
 const ProductDetail = () => {
     const axiosSecure = useAxiosSecure()
     const { state: productData } = useLocation()
+    console.log(productData);
     const [loading, setLoading] = useState(false)
     const {user} = useAuth()
     const { refetch } = useCartProduct()
