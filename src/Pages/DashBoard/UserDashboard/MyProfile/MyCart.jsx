@@ -97,7 +97,7 @@ const MyCart = () => {
   return (
     <div className="h-full w-full flex flex-col justify-center">
       <div className="flex flex-col mb-10">
-        <h1 className="text-3xl font-semibold text-center mb-10">Product On Your Cart</h1>
+        <h1 className="text-3xl font-semibold text-center mb-10 ml-10">Product On Your Cart</h1>
         <div className="flex flex-col lg:container max-w-[98vw] mx-auto">
           <div className="overflow-x-auto border-2 rounded-xl">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">

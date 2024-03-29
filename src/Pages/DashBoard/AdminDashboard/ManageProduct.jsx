@@ -35,7 +35,7 @@ const ManageProduct = () => {
         <div>
             <div className="h-full w-full flex flex-col justify-center ">
                 <div className="flex flex-col mb-10">
-                    <h1 className="text-3xl font-semibold text-center mb-10 ">
+                    <h1 className="text-3xl font-semibold text-center mb-10 ml-14">
                         Manage All The Product
                     </h1>
                     <div className="flex flex-col lg:container max-w-[98vw] mx-auto">

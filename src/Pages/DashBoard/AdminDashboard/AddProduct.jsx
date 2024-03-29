@@ -118,8 +118,8 @@ const AddProduct = () => {
 
     console.log(productData);
     return (
-        <section className="h-full">
-            <form onSubmit={handleSubmit} className="w-1/2 mx-auto space-y-6 flex flex-col justify-center h-full">
+        <section className="h-full container">
+            <form onSubmit={handleSubmit} className="w-1/2 mx-auto space-y-6 grid grid-cols-1 gap-3 justify-center h-full">
                 <h1 className="text-center ">Add New Product</h1>
                 <Input type="text" name={"Product Name"} onChange={(e) => setProductData({ ...productData, productName: e.target.value })} />
                 <Input type="text" name={"description"} onChange={(e) => setProductData({ ...productData, description: e.target.value })} />
@@ -129,7 +129,7 @@ const AddProduct = () => {
                 <Input type="text" name={"Gender"} onChange={(e) => setProductData({ ...productData, gender: e.target.value })} />
                 <div>
                     <h3 className="font-medium my-4">Available Size</h3>
-                    <div className="flex items-center gap-8">
+                    <div className="grid sm:grid-cols-4 md:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 items-center gap-8">
                         <div className="flex gap-2">
                             <input type="checkbox" value={"S"} onChange={handleAvailableSize} className="checkbox  checkbox-neutral" />
                             <span>S</span>
