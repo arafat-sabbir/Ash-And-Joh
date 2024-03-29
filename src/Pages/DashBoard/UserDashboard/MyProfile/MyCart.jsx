@@ -15,9 +15,7 @@ const MyCart = () => {
   const axiosSecure = useAxiosSecure();
   const [editableProductId, setEditableProductId] = useState(null); // Track editable product ID
   const [quantities, setQuantities] = useState({}); // Initialize quantities as an empty object
-  const [loadingCart, setLoadingCart] = useState(true); // Add loading state for cart
   const [cancelEdit, setCancelEdit] = useState(true)
-
   // Use useEffect to update quantities when cartProduct changes
   useEffect(() => {
     if (cartProduct) {
@@ -26,19 +24,21 @@ const MyCart = () => {
         initialQuantities[item._id] = item.quantity;
       });
       setQuantities(initialQuantities);
-      setLoadingCart(false); // Set loadingCart to false when cartProduct is available
     }
   }, [cartProduct, cancelEdit]);
 
   const editQuantities = async (id) => {
     if (Object.prototype.hasOwnProperty.call(quantities, id)) {
       const quantity = quantities[id];
-      const response = await axiosSecure.patch(`/cart/updateCartProduct/${id}`, { quantity });
-      console.log(response.data);
-      if (response.status === 200) {
-        refetch()
-        toast.success("Cart Updated SuccessFully");
-      } else {
+      try {
+        const response = await axiosSecure.patch(`/cart/updateCartProduct/${id}`, { quantity });
+        if (response.status==200) {
+          refetch();
+          toast.success("Cart Updated SuccessFully");
+        } 
+      } catch (error) {
+        setCancelEdit(!cancelEdit)
+        console.log("cart product error");
         toast.error("Error While Updating Product");
       }
       // Do whatever you need with the quantity here
@@ -46,6 +46,7 @@ const MyCart = () => {
       console.log(`ID ${id} not found in quantities object`);
     }
   };
+  
 
   const handleCancelEdit = () => {
     setCancelEdit(!cancelEdit)

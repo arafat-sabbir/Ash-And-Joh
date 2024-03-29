@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const useCartProduct = () => {
     const axiosSecure = useAxiosSecure()
-    const { data:cartData, refetch, isLoading, isPending } = useQuery({
+    const { data: cartData, refetch, isLoading, isPending } = useQuery({
         queryKey: ["cartProduct"],
         queryFn: async () => {
             const res = await axiosSecure.get("/cart/getCartProduct")
@@ -11,7 +11,7 @@ const useCartProduct = () => {
         }
     })
     // const {cartProduct,grandTotal} = cartData;
-    return { cartProduct:cartData?.cartProduct,grandTotal:cartData?.grandTotal, refetch, isLoading, isPending }
+    return { cartProduct: cartData?.cartProduct, grandTotal: cartData?.grandTotal, refetch, isLoading, isPending }
 };
 
 export default useCartProduct;
