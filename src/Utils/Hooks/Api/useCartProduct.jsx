@@ -7,9 +7,10 @@ const useCartProduct = () => {
         queryKey: ["cartProduct"],
         queryFn: async () => {
             const res = await axiosSecure.get("/cart/getCartProduct")
-            return res.data.CartData;
+            return res.data.cartData;
         }
     })
+    console.log(cartData);
     // const {cartProduct,grandTotal} = cartData;
     return { cartProduct: cartData?.cartProduct, grandTotal: cartData?.grandTotal, refetch, isLoading, isPending }
 };

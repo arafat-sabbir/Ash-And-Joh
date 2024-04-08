@@ -7,18 +7,19 @@ import { AiOutlineLoading } from "react-icons/ai";
 import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import { toast } from 'sonner';
 import useCartProduct from '@/Utils/Hooks/Api/useCartProduct';
+import ScrollToTop from '@/Utils/ScrollToTop';
 const ProductDetail = () => {
     const axiosSecure = useAxiosSecure()
     const { state: productData } = useLocation()
     console.log(productData);
     const [loading, setLoading] = useState(false)
-    const {user} = useAuth()
+    const { user } = useAuth()
     const { refetch } = useCartProduct()
     const [currentSlider, setCurrentSlider] = useState(0);
     const [selectedSize, setSelectedSize] = useState("")
     const [quantity, setQuantity] = useState(1)
     const { userData } = useAuth()
-
+    ScrollToTop()
     const increaseQuantity = () => {
         setQuantity(quantity + 1)
     }
@@ -35,8 +36,8 @@ const ProductDetail = () => {
         userId: userData._id
     }
     const addToCart = () => {
-        if(!user){
-          return  toast.error("Please Login To Add Product On Cart")
+        if (!user) {
+            return toast.error("Please Login To Add Product On Cart")
         }
         setLoading(true)
         const toastId = toast.loading("Product Adding To Cart")
@@ -53,11 +54,9 @@ const ProductDetail = () => {
     return (
         <section className='grid sm:grid-cols-1 lg:grid-cols-2 justify-center gap-6 container border-2 divide-x-2 my-10 '>
             <div className=' text-center w-2/3'>
-                <div className='md:h-[300px] w-[600px] mt-10'>
-                    <div className="flex border-2 border-red-500 flex-col items-center justify-center gap-5 lg:gap-10 bg-cover bg-top before:absolute before:inset-0 transform duration-400 ease-linear"
-                    >
-                        <img src={productData.productImages[currentSlider]} alt="" />
-                    </div>
+                <div className="flex border-2 flex-col items-center justify-center gap-5 lg:gap-10 bg-cover bg-top before:absolute before:inset-0 transform duration-400 ease-linear"
+                >
+                    <img src={productData.productImages[currentSlider]} alt="" />
                 </div>
                 {/* slider container */}
                 <div className="flex justify-center items-center gap-3 p-2">
@@ -84,12 +83,12 @@ const ProductDetail = () => {
                         <button onClick={increaseQuantity}><FiPlus />
                         </button>
                     </div>
-                    
-                    <button onClick={addToCart} disabled={loading || !selectedSize} className='flex gap-1 disabled:bg-transparent border-2 w-[150px] py-3  items-center justify-center hover:bg-black hover:text-white disabled:hover:text-black transition-all duration-300'>Add To Cart {loading?<AiOutlineLoading className='animate-spin'/>: <MdOutlineShoppingBag />}</button>
+
+                    <button onClick={addToCart} disabled={loading || !selectedSize} className='flex gap-1 disabled:bg-transparent border-2 w-[150px] py-3  items-center justify-center hover:bg-black hover:text-white disabled:hover:text-black transition-all duration-300'>Add To Cart {loading ? <AiOutlineLoading className='animate-spin' /> : <MdOutlineShoppingBag />}</button>
                 </div>
             </div>
         </section>
     );
-}; 
+};
 
 export default ProductDetail;

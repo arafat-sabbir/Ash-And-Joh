@@ -2,7 +2,6 @@ import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import ImageInput from "@/Utils/AuthForm/ImageInput";
 import Input from "@/Utils/AuthForm/Input";
 import SecondaryButton from "@/Utils/AuthForm/SecondaryButton";
-import axios from "axios";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -16,8 +15,6 @@ const AddProduct = () => {
         availAbleOnStock: 0,
         availableSize: []
     });
-    const imageHostingKey = import.meta.env.VITE_IMAGE_HOST_KEY;
-    const imageHostingAPi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
     const [imagePreview, setImagePreview] = useState(null);
     const [imageName, setImageName] = useState(null);
     const axiosSecure = useAxiosSecure();
@@ -48,48 +45,44 @@ const AddProduct = () => {
             setImageName(null);
         }
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const toastId = toast.loading("Adding Product");
-
+    
         try {
-            const selectedImages = e.target.productImages.files;
-
-            const productImages = await Promise.all(
-                Array.from(selectedImages).map(async (image) => {
-                    const formData = new FormData();
-                    formData.append('image', image);
-
-                    const hostedPhoto = await axios.post(imageHostingAPi, formData, {
-                        headers: {
-                            'content-type': 'multipart/form-data'
-                        }
-                    });
-
-                    return hostedPhoto.data.data.display_url;
-                })
-            );
-
-            // Verify uploaded image URLs
-            console.log("Uploaded images:", productImages);
-
-            // Update productData with all uploaded image URLs
-            setProductData(prevState => {
-                console.log("data with image", { ...prevState, productImages: productImages });
-                return { ...prevState, productImages: productImages };
+            const formData = new FormData();
+            formData.append("productName", productData.productName);
+            formData.append("description", productData.description);
+            formData.append("price", productData.price);
+            formData.append("fabrics", productData.fabrics);
+            formData.append("gender", productData.gender);
+            formData.append("availAbleOnStock", productData.availAbleOnStock);
+            productData.availableSize.forEach((size) => {
+                formData.append("availableSize", size);
             });
-            console.log("data with image", productData);
-            // Send product data to the backend
-            const response = await axiosSecure.post('/products/addProduct', productData);
-            console.log(response.data);
+            for (let i = 0; i < e.target.productImages.files.length; i++) {
+                formData.append("productImages", e.target.productImages.files[i]);
+            }
+    
+            // Send formData to the backend
+            const response = await axiosSecure.post('/products/addProduct', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+    
             if (response.status === 200) {
                 toast.success("Product Added Successfully", { id: toastId });
                 e.target.reset();
-                setProductData(prevState => ({
-                    ...prevState,
-                    productImages: [] // Clear productImages state
-                }));
+                setProductData({
+                    productName: "",
+                    description: "",
+                    price: "",
+                    fabrics: "",
+                    gender: "",
+                    availAbleOnStock: 0,
+                    availableSize: []
+                });
                 setImagePreview(null); // Clear imagePreview state
             } else {
                 toast.error(response.data.message || "Error Adding Product", { id: toastId });
@@ -99,8 +92,6 @@ const AddProduct = () => {
             console.error("Error uploading images or sending product data:", error);
         }
     };
-
-
     const handleAvailableSize = (e) => {
         const size = e.target.value;
         if (e.target.checked) {
@@ -115,8 +106,6 @@ const AddProduct = () => {
             }));
         }
     };
-
-    console.log(productData);
     return (
         <section className="h-full container">
             <form onSubmit={handleSubmit} className="w-1/2 mx-auto space-y-6 grid grid-cols-1 gap-3 justify-center h-full">
@@ -129,7 +118,7 @@ const AddProduct = () => {
                 <Input type="text" name={"Gender"} onChange={(e) => setProductData({ ...productData, gender: e.target.value })} />
                 <div>
                     <h3 className="font-medium my-4">Available Size</h3>
-                    <div className="grid sm:grid-cols-4 md:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 items-center gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 items-center gap-8">
                         <div className="flex gap-2">
                             <input type="checkbox" value={"S"} onChange={handleAvailableSize} className="checkbox  checkbox-neutral" />
                             <span>S</span>
