@@ -1,8 +1,10 @@
 import useAllProduct from "@/Utils/Hooks/Api/useAllProduct";
+import ScrollToTop from "@/Utils/ScrollToTop";
 import { Link } from "react-router-dom";
 
 const Shop = () => {
    const { allProduct } = useAllProduct();
+   ScrollToTop()
    return (
       <section>
          {/* <div className="w-full h-96 bg-no-repeat" style={{ backgroundImage: "url('https://d1csarkz8obe9u.cloudfront.net/posterpreviews/custom-t-shirts-banner-design-template-4900533935ea094ef9a9b73571605d04_screen.jpg?ts=1686050363')" }}>
