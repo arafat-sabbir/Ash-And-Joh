@@ -47,18 +47,15 @@ const MyCart = () => {
     }
   };
   
-
   const handleCancelEdit = () => {
     setCancelEdit(!cancelEdit)
   }
-
   const increaseQuantity = (productId) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
       [productId]: (prevQuantities[productId] || 0) + 1,
     }));
   };
-
   const decreaseQuantity = (productId) => {
     if (quantities[productId] > 1) {
       setQuantities((prevQuantities) => ({
@@ -67,8 +64,7 @@ const MyCart = () => {
       }));
     }
   };
-
-
+  
   const deleteCartProduct = (id) => {
     toast('Are You Sure Want To Delete', {
       action: {

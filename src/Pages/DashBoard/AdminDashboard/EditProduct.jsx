@@ -6,22 +6,21 @@ import SecondaryButton from "@/Utils/AuthForm/SecondaryButton";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { FaVolumeHigh } from "react-icons/fa6";
 
 const EditProduct = () => {
     const {id} = useParams()
     const {state:PrevProductData} = useLocation()
     console.log(PrevProductData.availableSize);
     const [productData, setProductData] = useState({
-        productName: "",
-        description: "",
-        price: "",
-        fabrics: "",
-        gender: "",
-        availableSize: []
+        productName: PrevProductData.productName,
+        description: PrevProductData.description,
+        price: PrevProductData.price,
+        fabrics: PrevProductData.fabrics,
+        gender: PrevProductData.gender,
+        availableSize: PrevProductData.availableSize,
+        availAbleOnStock: PrevProductData.availAbleOnStock // Add availAbleOnStock
     });
-    const imageHostingKey = import.meta.env.VITE_IMAGE_HOST_KEY;
-    const imageHostingAPi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
+    
     const [imagePreview, setImagePreview] = useState(null);
     const [imageName, setImageName] = useState(null);
     const axiosSecure = useAxiosSecure();
@@ -59,55 +58,53 @@ const EditProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const toastId = toast.loading("Adding Product");
-
         try {
-            const selectedImages = e.target.productImages.files;
-
-            const productImages = await Promise.all(
-                Array.from(selectedImages).map(async (image) => {
-                    const formData = new FormData();
-                    formData.append('image', image);
-
-                    const hostedPhoto = await axios.post(imageHostingAPi, formData, {
-                        headers: {
-                            'content-type': 'multipart/form-data'
-                        }
-                    });
-
-                    return hostedPhoto.data.data.display_url;
-                })
-            );
-
-            // Verify uploaded image URLs
-            console.log("Uploaded images:", productImages);
-
-            // Update productData with all uploaded image URLs
-            setProductData(prevState => {
-                console.log("data with image", { ...prevState, productImages: productImages });
-                return { ...prevState, productImages: productImages };
-              });
-            console.log("data with image", productData);
-            // Send product data to the backend
-            const response = await axiosSecure.post('/products/addProduct', productData);
-            console.log(response.data);
-            if (response.status === 200) {
-                toast.success("Product Added Successfully", { id: toastId });
-                e.target.reset();
-                setProductData(prevState => ({
-                    ...prevState,
-                    productImages: [] // Clear productImages state
-                }));
-                setImagePreview(null); // Clear imagePreview state
-            } else {
-                toast.error(response.data.message || "Error Adding Product", { id: toastId });
+            const formData = new FormData();
+            formData.append("productName", productData.productName);
+            formData.append("description", productData.description);
+            formData.append("price", productData.price);
+            formData.append("fabrics", productData.fabrics);
+            formData.append("gender", productData.gender);
+            formData.append("availAbleOnStock", productData.availAbleOnStock);
+            // Append each available size individually
+            productData.availableSize.forEach((size) => {
+                formData.append("availableSize[]", size);
+            });
+            // Append each image separately
+            for (let i = 0; i < imagePreview.length; i++) {
+                formData.append("productImages", imagePreview[i]);
             }
-            console.log("Backend Response:", response.data);
+            console.log(formData,"faldj");
+            // Send formData to the backend
+            // const response = await axiosSecure.patch(`/products/editProduct/${id}`, formData, {
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data'
+            //     }
+            // });
+            
+            // if (response.status === 200) {
+            //     toast.success("Product Updated Successfully", { id: toastId });
+            //     e.target.reset();
+            //     setProductData({
+            //         productName: "",
+            //         description: "",
+            //         price: "",
+            //         fabrics: "",
+            //         gender: "",
+            //         availAbleOnStock: 0,
+            //         availableSize: []
+            //     });
+            //     setImagePreview(null); // Clear imagePreview state
+            // } else {
+            //     toast.error(response.data.message || "Error Updating Product", { id: toastId });
+            // }
+            // console.log("Backend Response:", response.data);
         } catch (error) {
-            console.error("Error uploading images or sending product data:", error);
+            console.error("Error updating product:", error);
         }
     };
-
+    
+    
 
     const handleAvailableSize = (e) => {
         const size = e.target.value;
@@ -133,6 +130,7 @@ const EditProduct = () => {
                 <Input  defaultValue={PrevProductData.price} type="number" name={"price"} onChange={(e) => setProductData({ ...productData, price: e.target.value })} />
                 <Input defaultValue={PrevProductData.fabrics} type="text" name={"Build Material"} onChange={(e) => setProductData({ ...productData, fabrics: e.target.value })} />
                 <Input type="text" name={"Gender"}  defaultValue={PrevProductData.gender}  onChange={(e) => setProductData({ ...productData, gender: e.target.value })} />
+                <Input type="number" name={"availAble On Stock"} defaultValue={PrevProductData.availAbleOnStock} onChange={(e) => setProductData({ ...productData, availAbleOnStock: e.target.value })} />
                 <div>
                     <h3 className="font-medium my-4">Available Size</h3>
                     <div className="flex items-center gap-8">

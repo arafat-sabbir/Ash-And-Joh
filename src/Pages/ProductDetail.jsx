@@ -21,7 +21,11 @@ const ProductDetail = () => {
     const { userData } = useAuth()
     ScrollToTop()
     const increaseQuantity = () => {
-        setQuantity(quantity + 1)
+        if (quantity < productData.availAbleOnStock) {
+            setQuantity(quantity + 1)
+        }else{
+            toast.error("Maximum Quantity Selected")
+        }
     }
     const decreaseQuantity = () => {
         if (quantity > 1) {
@@ -71,11 +75,11 @@ const ProductDetail = () => {
             <div className='flex-1 px-5'>
                 <h1 className='sm:text-xl md:text-3xl font-bold my-5'>{productData.productName}</h1>
                 <p className='sm:text-sm md:text-xl mb-5'>{productData.description}</p>
-                <h2 className="sm:text-sm md:text-xl font-medium">Availability: In Stock</h2>
                 <h1 className='sm:text-xl md:text-2xl font-bold my-5 text-red-600'>ট {productData.price}</h1>
-                <div className='grid sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-4 items-center'>
-                    <span className='sm:text-sm md:text-xl font-medium'>AvailAble Size</span> {productData.availableSize.map((size, index) => <button onClick={() => setSelectedSize(size)} className={`btn rounded-full ${selectedSize === size ? "btn-neutral" : "btn-outline "}`} key={index}>{size}</button>)}
+                <div className='grid md:grid-cols-6 lg:grid-cols-6 grid-cols-3 gap-4 items-center lg:w-1/2'>
+                    <h1 className='sm:text-sm md:text-lg font-medium'>Size:</h1> {productData.availableSize.map((size, index) => <button onClick={() => setSelectedSize(size)} className={`btn rounded-full ${selectedSize === size ? "btn-neutral rounded-full" : "btn-outline rounded-full"}`} key={index}>{size}</button>)}
                 </div>
+                <h2 className="text-lg font-semibold mt-8 ">In Stock: {productData.availAbleOnStock}</h2>
                 <div className='flex gap-4 my-10'>
                     <div className='border-2 w-[150px] py-3 flex items-center justify-center gap-3 '>
                         <button onClick={decreaseQuantity}><FiMinus size={18} /></button>

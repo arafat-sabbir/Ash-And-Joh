@@ -1,0 +1,26 @@
+.each-slide-effect>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    height: 100vh;
+}
+.each-slide-effect{
+    background-color: #EEEDEB;
+}
+
+.button-style {
+    color: black;
+    font-size: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 15px;
+    transition: all;
+    transition-duration: .8s;
+}
+
+.button-style:hover {
+    background-color: black;
+    border-radius: 100%;
+    color:white;
+}

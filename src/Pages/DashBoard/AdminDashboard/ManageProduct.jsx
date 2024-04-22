@@ -9,17 +9,20 @@ const ManageProduct = () => {
     const { allProduct, isLoading, refetch } = useAllProduct()
     const axiosSecure = useAxiosSecure()
     const handleDeleteProduct = (id) => {
-        const res = window.confirm("Are You Sure You Want To Delete This Product")
-        if (res) {
-            console.log(id);
-            axiosSecure.delete(`/products/deleteProduct/${id}`)
-                .then(res => {
-                    if (res.status === 200 || res.status === 201) {
-                        refetch()
-                        toast.success(res.data.message || "Product Deleted SuccessFully")
-                    }
-                })
-        }
+        toast('Are You Sure Want To Delete', {
+            action: {
+              label: 'Yes',
+              button: "NO",
+              onClick: () => {
+                axiosSecure.delete(`/products/deleteProduct/${id}`).then((res) => {
+                  if (res.status === 200) {
+                    toast.success("Product deleted Successfully");
+                    refetch();
+                  }
+                });
+              },
+            },
+          });
     }
     if (isLoading) {
         const loadingCard = [1, 2, 3, 4, 5, 6, 7, 8]

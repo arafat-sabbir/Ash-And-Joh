@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import AuthForm from "@/Utils/AuthForm/AuthForm";
 import { useState } from "react";
@@ -12,7 +12,6 @@ const Navbar = () => {
     const [formType, setFormType] = useState(null);
     const { isScrolled } = useIsScrolled();
     const { user } = useAuth();
-    const { pathname } = useLocation()
     const { cartProduct } = useCartProduct()
 
     const NavLinks = (
@@ -76,7 +75,7 @@ const Navbar = () => {
                         </ul>
                         {user ? (
                             <>
-                                {cartProduct?.length > 0 && <Link to={"/dashboard/myCart"} className="relative mr-6 bg-gray-100 p-2 rounded-full text-white"><span><MdOutlineShoppingBag size={24} className="text-red-500"/></span> <span className="absolute bottom-6 left-7 text-red-500 text-xl font-medium">{cartProduct?.length}</span></Link>}
+                                {cartProduct?.length > 0 && <Link to={"/dashboard/myCart"} className="relative mr-6 bg-gray-100 p-2 rounded-full text-white"><span><MdOutlineShoppingBag size={24} className="text-red-500" /></span> <span className="absolute bottom-6 left-7 text-red-500 text-xl font-medium">{cartProduct?.length}</span></Link>}
 
                                 <Link to={"/Dashboard/myProfile"}><Button image={user.photoURL} title={"Account"} /></Link>
                             </>
@@ -91,9 +90,6 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-            {pathname === "/" && <div style={{ backgroundImage: "url('https://d1csarkz8obe9u.cloudfront.net/posterpreviews/custom-t-shirts-banner-design-template-4900533935ea094ef9a9b73571605d04_screen.jpg?ts=1686050363')" }} className="bg-cover bg-no-repeat h-[60vh] bg-center flex justify-center items-center relative">
-                <h1 className={`text-5xl absolute ${isScrolled ? "right-0 transform -translate-y-60 -translate-x-[600px]" : ""}`}>Ash & Joh</h1>
-            </div>}
         </>
     );
 };

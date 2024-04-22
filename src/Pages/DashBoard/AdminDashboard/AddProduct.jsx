@@ -107,9 +107,9 @@ const AddProduct = () => {
         }
     };
     return (
-        <section className="h-full container">
-            <form onSubmit={handleSubmit} className="w-1/2 mx-auto space-y-6 grid grid-cols-1 gap-3 justify-center h-full">
-                <h1 className="text-center ">Add New Product</h1>
+        <section className=" lg:w-1/2 border-2 border-red-500 h-full container">
+            <form onSubmit={handleSubmit} className="mt-10 mx-auto space-y-6 grid grid-cols-1 gap-3 justify-center h-full">
+                <h1 className="text-center text-xl font-semibold">Add New Product</h1>
                 <Input type="text" name={"Product Name"} onChange={(e) => setProductData({ ...productData, productName: e.target.value })} />
                 <Input type="text" name={"description"} onChange={(e) => setProductData({ ...productData, description: e.target.value })} />
                 <Input type="number" name={"price"} onChange={(e) => setProductData({ ...productData, price: e.target.value })} />
@@ -118,7 +118,7 @@ const AddProduct = () => {
                 <Input type="text" name={"Gender"} onChange={(e) => setProductData({ ...productData, gender: e.target.value })} />
                 <div>
                     <h3 className="font-medium my-4">Available Size</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 items-center gap-8">
+                    <div className=" grid grid-cols-4 md:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 items-center gap-8">
                         <div className="flex gap-2">
                             <input type="checkbox" value={"S"} onChange={handleAvailableSize} className="checkbox  checkbox-neutral" />
                             <span>S</span>

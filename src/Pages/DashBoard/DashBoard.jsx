@@ -37,9 +37,8 @@ const Dashboard = () => {
                   aria-label="close sidebar"
                   className="drawer-overlay"
                ></label>
-               <div className="menu p-4 w-80 min-h-full fixed md:bg-transparent !bg-[#FFF6EB]">
+               <div className="menu p-4 w-80 min-h-full fixed md:bg-transparent !bg-[#FFF6EB] z-50">
                   {/* Sidebar content here */}
-
                   <Link
                      to={"/"}
                      className="flex justify-center items-center min-w-full mb-10"
