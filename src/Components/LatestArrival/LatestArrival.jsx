@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const LatestArrival = () => {
    const { allProduct } = useAllProduct();
-   console.log(allProduct);
    return (
       <section className="flex flex-col items-center w-full h-full">
          <h1 className="text-3xl font-semibold text-center my-10">
@@ -15,7 +14,6 @@ const LatestArrival = () => {
                <Link
                   state={product}
                   to={`/productDetail/${product._id}`}
-                  classNameName="  "
                   key={index}
                >
                   <div className="w-full h-full bg-[#EEEDEB]  border-2 p-2  rounded-lg shadow-[0_0_30px_#E6E6E6] dark:bg-gray-800">
@@ -24,7 +22,7 @@ const LatestArrival = () => {
                </Link>
             ))}
          </div>
-         <Link to={"/shop"}>
+         <Link to={"/shop"} className="my-10">
             <SecondaryButton title={"See More"}></SecondaryButton>
          </Link>
       </section>
