@@ -10,7 +10,6 @@ const useCartProduct = () => {
             return res.data.cartData;
         }
     })
-    console.log(cartData);
     // const {cartProduct,grandTotal} = cartData;
     return { cartProduct: cartData?.cartProduct, grandTotal: cartData?.grandTotal, refetch, isLoading, isPending }
 };

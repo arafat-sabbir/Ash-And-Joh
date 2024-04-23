@@ -3,11 +3,21 @@ import useAllProduct from "@/Utils/Hooks/Api/useAllProduct";
 import { MdDeleteOutline } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 import { toast } from "sonner";
+import { GoStar } from "react-icons/go";
+import { GoStarFill } from "react-icons/go";
 import { Link } from "react-router-dom";
 
 const ManageProduct = () => {
     const { allProduct, isLoading, refetch } = useAllProduct()
     const axiosSecure = useAxiosSecure()
+    const handleToggleFeatured = (id)=>{
+        axiosSecure.patch(`/products/toggleFeatured/${id}`).then((res) => {
+            if (res.status === 200) {
+                toast.success("Product Status Changed Successfully");
+                refetch();
+            }
+        });
+    }
     const handleDeleteProduct = (id) => {
         toast('Are You Sure Want To Delete', {
             action: {
@@ -33,7 +43,6 @@ const ManageProduct = () => {
             </div>)}
         </div>
     }
-
     return (
         <div className="h-full w-full flex flex-col justify-center ">
             <div className="flex flex-col mb-10">
@@ -73,6 +82,12 @@ const ManageProduct = () => {
                                         scope="col"
                                         className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                                     >
+                                       Featured Product
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                                    >
                                         Action
                                     </th>
                                 </tr>
@@ -90,12 +105,14 @@ const ManageProduct = () => {
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
                                             {item.productName}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-800 dark:text-gray-200">
+                                        <td className=" whitespace-nowrap text-center text-sm font-medium  text-gray-800 dark:text-gray-200">
                                             {item.availableSize.map((size, index) => (
                                                 <span key={index} className="mr-2 p-[2px] rounded-md bg-gray-200">{size}</span>
                                             ))}
                                         </td>
-
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 cursor-pointer">
+                                            {item.featured? <button onClick={()=>handleToggleFeatured(item._id)} className="text-yellow-500"><GoStarFill size={26}/></button>: <button onClick={()=>handleToggleFeatured(item._id)} ><GoStar size={26}/></button>}
+                                        </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 flex space-x-2">
                                             <Link state={item} to={`/dashboard/editProduct/${item._id}`} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700 border-none"><FiEdit size={20} /> </Link>
                                             <button onClick={() => handleDeleteProduct(item._id)} className="p-2 rounded-full bg-red-500 text-white hover:bg-red-500 border-none"><MdDeleteOutline size={20} /> </button>

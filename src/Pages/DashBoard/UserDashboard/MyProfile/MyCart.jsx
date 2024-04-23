@@ -50,12 +50,18 @@ const MyCart = () => {
   const handleCancelEdit = () => {
     setCancelEdit(!cancelEdit)
   }
-  const increaseQuantity = (productId) => {
-    setQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: (prevQuantities[productId] || 0) + 1,
-    }));
+
+  const increaseQuantity = (product) => {
+    if (quantities[product._id] < product.productData.availAbleOnStock) {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [product._id]: (prevQuantities[product._id] || 0) + 1,
+      }));
+    } else {
+      toast.error("Maximum Quantity Selected");
+    }
   };
+  
   const decreaseQuantity = (productId) => {
     if (quantities[productId] > 1) {
       setQuantities((prevQuantities) => ({
@@ -139,7 +145,7 @@ const MyCart = () => {
                         <span className="text-lg bg-gray-200 px-2 rounded-md">{quantities[item._id] || item.quantity}</span>
                         {/* Increase quantity button */}
                         {item._id === editableProductId && (
-                          <button onClick={() => increaseQuantity(item._id)}>
+                          <button onClick={() => increaseQuantity(item)}>
                             <FiPlus />
                           </button>
                         )}
@@ -152,7 +158,7 @@ const MyCart = () => {
                           <button onClick={() => { toggleEdit(item._id); editQuantities(item._id); }} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
                             {item._id === editableProductId ? <IoIosCheckmarkCircleOutline size={20} /> : <FiEdit size={20} />}
                           </button>
-                          <button onClick={() => { toggleEdit(item._id), handleCancelEdit(item._id) }} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700">
+                          <button onClick={() => { toggleEdit(item._id), handleCancelEdit(item._id) }} className="p-2 rounded-full bg-red-500 text-white hover:bg-red-500">
                             <MdOutlineCancel size={20} />
                           </button>
                         </>
