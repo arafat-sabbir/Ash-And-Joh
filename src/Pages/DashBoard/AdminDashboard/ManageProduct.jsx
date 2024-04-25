@@ -6,11 +6,12 @@ import { toast } from "sonner";
 import { GoStar } from "react-icons/go";
 import { GoStarFill } from "react-icons/go";
 import { Link } from "react-router-dom";
+import TableSkeleton from "@/Components/Skeleton/TableSkeleton";
 
 const ManageProduct = () => {
     const { allProduct, isLoading, refetch } = useAllProduct()
     const axiosSecure = useAxiosSecure()
-    const handleToggleFeatured = (id)=>{
+    const handleToggleFeatured = (id) => {
         axiosSecure.patch(`/products/toggleFeatured/${id}`).then((res) => {
             if (res.status === 200) {
                 toast.success("Product Status Changed Successfully");
@@ -35,21 +36,15 @@ const ManageProduct = () => {
         });
     }
     if (isLoading) {
-        const loadingCard = [1, 2, 3, 4, 5, 6, 7, 8]
-        return <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-10 justify-center items-center justify-items-center">
-            {loadingCard.map(item => <div key={item} className="card animate-pulse bg-gray-200">
-                <div className="bg"></div>
-                <div className="blob"></div>
-            </div>)}
-        </div>
+        return <TableSkeleton />
     }
     return (
-        <div className="h-full w-full flex flex-col justify-center ">
+        <div className="h-full w-full  flex flex-col justify-center ">
             <div className="flex flex-col mb-10">
                 <h1 className="text-3xl font-semibold text-center mb-10 ml-14">
                     Manage All The Product
                 </h1>
-                <div className="flex flex-col lg:container max-w-[98vw] mx-auto">
+                <div className="flex flex-col shadow-[0_0_50px_#D1CECD] rounded-lg p-6 lg:container max-w-[98vw] mx-auto">
                     <div className="overflow-x-auto border-2 rounded-xl">
                         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead>
@@ -82,7 +77,7 @@ const ManageProduct = () => {
                                         scope="col"
                                         className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                                     >
-                                       Featured Product
+                                        Featured Product
                                     </th>
                                     <th
                                         scope="col"
@@ -111,7 +106,7 @@ const ManageProduct = () => {
                                             ))}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 cursor-pointer">
-                                            {item.featured? <button onClick={()=>handleToggleFeatured(item._id)} className="text-yellow-500"><GoStarFill size={26}/></button>: <button onClick={()=>handleToggleFeatured(item._id)} ><GoStar size={26}/></button>}
+                                            {item.featured ? <button onClick={() => handleToggleFeatured(item._id)} className="text-yellow-500"><GoStarFill size={26} /></button> : <button onClick={() => handleToggleFeatured(item._id)} ><GoStar size={26} /></button>}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 flex space-x-2">
                                             <Link state={item} to={`/dashboard/editProduct/${item._id}`} className="p-2 rounded-full bg-green-700 text-white hover:bg-green-700 border-none"><FiEdit size={20} /> </Link>

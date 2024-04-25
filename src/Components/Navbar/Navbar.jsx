@@ -70,7 +70,7 @@ const Navbar = () => {
                         </Link>
                     </div>
                     <div className="navbar-end">
-                        <ul className="flex gap-4 mr-6 text-xl font-medium">
+                        <ul className=" gap-4 lg:flex hidden mr-6 text-xl font-medium">
                             {NavLinks}
                         </ul>
                         {user ? (
