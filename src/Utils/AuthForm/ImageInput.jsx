@@ -1,5 +1,5 @@
 import { Image } from "lucide-react";
-
+// Image input Components With Preview Image Features
 const ImageInput = ({ id, name, label, onChange, width, height, imageName, imagePreview, ...inputProps }) => {
     return (
         <div className="bg-slate-300/50 rounded-xl">
